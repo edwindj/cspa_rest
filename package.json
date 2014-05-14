@@ -1,0 +1,19 @@
+{
+  "name": "cspa_rest",
+  "version": "0.0.0",
+  "description": "Restify a command line application for CSPA",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "REST",
+    "CSPA"
+  ],
+  "author": "Edwin de Jonge, Jan van der Laan",
+  "license": "MIT",
+  "dependencies": {
+    "yaml": "^0.2.3",
+    "restify": "^2.8.0"
+  }
+}
