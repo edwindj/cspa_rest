@@ -1,4 +1,4 @@
-## Designing a REST interface for CSPA command line services
+Designing a REST interface for CSPA command line services
 
 
 ### To install:
