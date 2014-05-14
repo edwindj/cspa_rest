@@ -39,52 +39,62 @@ Resources:
 - `/example`
     Shows a working test example for this service.
     
-This is the place where new jobs can be submitted to the service.
-
 ## /job
 
-`POST` Creates a new job. On success result http status code 201 is returned with a url to the newly created job.
+This is the place where new jobs can be submitted to the service and job information can be retrieved
+
+### `POST` 
+
+Creates a new job. On succesful creation http status code 201 is returned with a url to the newly created job.
 
 `POST` message format (in JSON) depends on the service definition of the CSPA service. The input part must equal the parameters that are needed for a particalur service.
 ```json
 { "input" : {
       "data": "http://allthedatayouneed.com/mydata",
-      ...
+      ... // other parameters
   },
-  "name" : "TheCallingProcess" //name of the calling process
+  "name" : "TheCallingProcess" // name of the calling process,
+  //optional parameter
+  "on_end" : "http://callback.com/" // when service is ready, it will POST the job to this url 
 }
 ```
 
-`GET` Retrieves all active jobs
+### `GET` 
 
-Available methods
+Retrieves all active jobs as an array of jobs (see `/job/<id>`)
 
-`GET` Returns information on how to use the service. 
+## /job/<id>
 
-`http://example.com/service/jobs/1234`
+Read or delete job information
 
-### Available methods
+### `GET` 
 
-`GET` Returns information on the status of the job and when available returns links to the output data. 
+Returns information on the status of the job and when available returns links to the output data. 
+
+Format:
+```json
+{
+ "id" : "1234",
+ "url" : "http://example.com/my_service/job/1234",
+ "status" : "created" | "running" | "finished" | "error",
+ "input" : {
+    "data" : {"url" : "http://data.com/my_data.csv", "type":"csv"},
+    "rules" : {"url" : "http://data.com/my_rules.txt", "type": "txt" }
+    ...
+ }, // input parameters
+ "result": {
+    "data" : {"url": "http://example.com/my_service/job/1234/result/data", type="csv"},
+    ...
+  }, // result parameters
+ "log": {"url": "http://example.com/my_service/job/1234/log", "type":"text"},
+ "created": 2014-01-01T12:00 ,
+ "started": 2014-01-01T12:00 ,
+ "stopped": 2014-01-01T12:01
+}
+```
+
 
 `DELETE` Cancels the job and deletes all data belonging to the job from the service. 
-
-
-Output message
-```
-<job>
- <status>running/finished/error</status>
- <results>
- <logfile ref="http://example.com/service/jobs/1234/log" type="text"/>
- <dataout ref="http://example.com/service/jobs/1234/outputdata1"
- type="application/datapackage"/>
- </results>
- <serviceparams>
- <data ref="http://somewhere.org/data" type="application/json"/>
- <rules ref="http://somewhere.org/rules" type="text"/>
- </serviceparams>
-</job> 
-```
 
 Where logfile and dataout are only shown when available, e.g. when the job is running or when the job is 
 
@@ -112,6 +122,8 @@ http://example.com/service/jobs/1234/log
 # Open ends
 
 We currently do not address:
+
 - resource management. Services in this design are responsible for the created output. However in a next version this responsibility may be delegated to a resource management system.
 - data transformation, selection and filtering. It is up to the orchestrator/caller for the service to supply the input data in the correct format and syntax. 
 However this may be a general service to transform/select data, which may be combined with the resource manager (it may be implemented as transformation, mapping of filtering query on a resource.
+- authorization and authentication of calling the REST services.
