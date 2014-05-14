@@ -13,10 +13,9 @@ In this document we model a REST interface for CSPA services.
 A processing step is modelled as a job resource located at the service. 
 
 A job resource contains:
-- *name*: Human readable name of calling process
 - *id*: job id to be used in querying the job properties.
-- *ref*: (unique) URL to this job (includes job id)
-- *created*: datetime (UMT)
+- *url*: (unique) URL to this job (includes job id)
+- *name*: Human readable name of calling process
 - *input*:
 	- Data resources: URL endpoints to input data, that are to be retrieved using GET by 
 	the service
@@ -25,7 +24,8 @@ A job resource contains:
   		- URL endpoint to complex configuration objects.
 - *result*:
 	Data resources: URL endpoints to generated output data that are to be serviced by the service. (in the future this might be on a different server, but for now it is local on the service)
-- *status*: ["created", "scheduled", "running", "finished", "failed"]
+- *status*: ["created", "scheduled", "running", "finished", "error"]
+- *created*: datetime (UMT)
 - *started*: datetime
 - *finished*: datetime
 
@@ -76,6 +76,7 @@ Format:
 {
  "id" : "1234",
  "url" : "http://example.com/my_service/job/1234",
+ "name" : "my_process",
  "status" : "created" | "running" | "finished" | "error",
  "input" : {
     "data" : {"url" : "http://data.com/my_data.csv", "type":"csv"},
@@ -89,12 +90,15 @@ Format:
  "log": {"url": "http://example.com/my_service/job/1234/log", "type":"text"},
  "created": 2014-01-01T12:00 ,
  "started": 2014-01-01T12:00 ,
- "stopped": 2014-01-01T12:01
+ "stopped": 2014-01-01T12:01 ,
+ "on_end" : null
 }
 ```
 
 
-`DELETE` Cancels the job and deletes all data belonging to the job from the service. 
+### `DELETE` 
+
+Cancels the job and deletes all data belonging to the job from the service. 
 
 Where logfile and dataout are only shown when available, e.g. when the job is running or when the job is 
 
