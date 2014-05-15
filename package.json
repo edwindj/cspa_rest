@@ -13,7 +13,7 @@
   "author": "Edwin de Jonge, Jan van der Laan",
   "license": "MIT",
   "dependencies": {
-    "yaml": "^0.2.3",
-    "restify": "^2.8.0"
+    "restify": "^2.8.0",
+    "yamljs": "^0.1.5"
   }
 }
