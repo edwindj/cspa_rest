@@ -87,7 +87,7 @@ Format in JSON:
     ...
  }, 
  "result": {
-    "data" : "http://example.com/my_service/job/1234/result/data.csv",
+    "data" : "http://example.com/my_service/job/1234/result/data",
     ...
   }, // result parameters
  "log": {"url": "http://example.com/my_service/job/1234/log", "type":"text"},
