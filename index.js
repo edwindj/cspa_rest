@@ -44,6 +44,20 @@ function new_job(req, res, next) {
   }
 }
 
+function new_job_form(req, res, next) {
+  fs.readFile("html/new_job.html", function (err, data) {
+    if (err) {
+      next(err);
+      return;
+    }
+    res.header('Content-Type', 'text/html');
+    res.status(200);
+    res.end(data);
+    next();
+  });
+}
+
+
 function get_job(req, res, next) {
   res.send(jobs[+req.params.id]);
 }
@@ -68,6 +82,7 @@ var server = restify.createServer();
 server.pre(restify.pre.userAgentConnection());
 server.use(restify.bodyParser());
 server.post('/service', new_job);
+server.get('/service', new_job_form);
 server.get('/service/jobs/:id', get_job);
 server.get('/service/jobs/:id/:result', get_job_result);
 
