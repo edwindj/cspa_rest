@@ -95,8 +95,8 @@ Format:
  "name" : "my_process",
  "status" : "created" | "running" | "finished" | "error",
  "input" : {
-    "data" : "http://allthedatayouneed.com/mydata.csv"
-    "rules" : {"url" : "http://data.com/my_rules.txt", "type": "txt" }
+    "data" : "http://allthedatayouneed.com/mydata.csv",
+    "rules": "http://allthedatayouneed.com/myrules.txt", 
     ...
  }, 
  "result": {
