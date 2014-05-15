@@ -156,6 +156,6 @@ Services in this design are responsible for the created output. However in a nex
 It is up to the orchestrator/caller for the service to supply the input data in the correct format and syntax. 
 However this may be a general service to transform/select data, which may be combined with the resource manager (it may be implemented as transformation, mapping of filtering query on a resource.
 
-## authorization and authentication of calling the REST services.
+## authorization and authentication.
 In a production system controlling the service must be restricted to an adminstrator. Callers should not be able to see other job information
 
