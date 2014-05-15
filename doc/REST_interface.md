@@ -36,10 +36,10 @@ A job resource contains:
 - *on_end*: callback url
 
 
-`/my_service/job`: creating, reading and deleting service jobs
-==============================================================
+Creating, reading and deleting service jobs
+===========================================
 
-This is the place where new jobs can be submitted to the service and job information can be retrieved
+At `/my_service/job` new jobs can be submitted to the service and job information can be retrieved
 
 ### `POST /my_service/job`
 
