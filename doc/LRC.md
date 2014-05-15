@@ -41,7 +41,7 @@ The rules supported can have the following forms:
 
 ### Result: `checks`
 Checks is a international CSV file (sep=",", dec="."). The column number corresponds to the line number of the rules.
-So the first column is the first rule in `job.input.rules`. The rows of `checks` correspond to the rows of `job.input.data`.
+So the first column is the first rule in `input.rules`. The rows of `result.checks` correspond to the rows of `input.data`.
 
 # Using the service
 
