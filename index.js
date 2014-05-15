@@ -5,6 +5,23 @@ var restify = require('restify');
 var child_process = require("child_process");
 var fs = require("fs");
 
+var exec = JSON.parse(fs.readFileSync('code/parameters.json', 'utf8'));
+
+function exec_code(dir, jobdescription, callback) {
+  var arguments = [];
+  fs.writeFileSync(dir + "/job.json", JSON.stringify(jobdescription));
+  for (var i = 0; i < exec.arguments.length; i++) {
+    arguments[i] = exec.arguments[i].replace("%%ROOT%%", __dirname);
+    arguments[i] = arguments[i].replace("%%JOB%%", dir + "/job.json");
+  }
+  console.log(jobdescription);
+  console.log("dir:", dir);
+  var proc = child_process.spawn(exec.command, arguments, {
+    "cwd" : dir
+  });
+  if (callback) proc.on("close", callback);
+}
+
 
 var jobs = [];
 
@@ -22,11 +39,12 @@ function start_job(id) {
   fs.mkdirSync(JOBDIR + "/" + id);
   // TODO check result of mkdir
   jobs[id].status = "running";
-  var proc = child_process.spawn("R", ["--vanilla", "-f", __dirname + "/code/test.R", 
+  exec_code(JOBDIR + "/" + id, jobs[id], function(code) { finish_job(id, code); });
+  /*var proc = child_process.spawn("R", ["--vanilla", "-f", __dirname + "/code/test.R", 
       "--args", __dirname + "/code/test.csv", "out.csv"], {
     "cwd" : JOBDIR + "/" + id
   });
-  proc.on("close", function(code) { finish_job(id, code); });
+  proc.on("close", function(code) { finish_job(id, code); });*/
 }
 
 function new_job(req, res, next) {
