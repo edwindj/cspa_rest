@@ -23,6 +23,7 @@ A job resource contains:
 - *id*: job id to be used in querying the job properties.
 - *url*: (unique) URL to this job (includes job id)
 - *name*: Human readable name of calling process
+- *version*: version of the service that created this job.
 - *input*:
 	- Data resources: URL endpoints to input data, that are to be retrieved using GET by 
 	the service
@@ -90,6 +91,7 @@ Format:
 {
  "id" : "1234",
  "url" : "http://example.com/my_service/job/1234",
+ "version": "0.0.1",
  "name" : "my_process",
  "status" : "created" | "running" | "finished" | "error",
  "input" : {
@@ -142,7 +144,7 @@ Data resource for now are urls, but can be expanded with more intelligence (quer
 
 A service will apply semantic versioning: a client can ask for a specific version of the service in the HEAD using
 
-`accept-version=<version number>`  where the version is a semantic versio number. If omitted, it will by default use the latest version of the service.
+`Accept-Version=<version number>`  where the version is a semantic versio number. If omitted, it will by default use the latest version of the service.
 
 # Open ends
 
