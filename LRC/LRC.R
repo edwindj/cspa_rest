@@ -4,7 +4,6 @@ library(getopt)
 library(rjson)
 library(editrules)
 
-
 spec = matrix(c(
   'data'  , 'i', 1, "character",  
   'rules' , 'r', 1, "character",
