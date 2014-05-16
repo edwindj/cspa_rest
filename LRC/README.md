@@ -11,9 +11,9 @@ $ Rscript LRC.R --data file://example/input/data.csv \
 It needs three parameters:
 - `data` url to csv file with data to be checked
 - `rules` url to text file with rules to be used in checking
-- `checks` file path where LRC.R will generate a csv file
+- `checks` file path where "LRC.R" will generate a csv file
 
-The director `example` contains
+The directory `example` contains
 - input data resources
 - result data resources
 - a job json file.
