@@ -143,7 +143,7 @@ Other considerations
 
 Data resource for now are urls, but can be expanded with more intelligence (query, type, dataproviders, etc.)
 
-## Versioning off service
+## Service versioning
 
 A service will apply semantic versioning: a client can ask for a specific version of the service in the HEAD using
 
