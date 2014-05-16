@@ -99,12 +99,12 @@ function get_job_result(req, res, next) {
 var server = restify.createServer();
 server.pre(restify.pre.userAgentConnection());
 server.use(restify.bodyParser());
+
 server.post('/service', new_job);
 server.get('/service', new_job_form);
-server.get('/service/jobs/:id', get_job);
-server.get('/service/jobs/:id/:result', get_job_result);
+server.get('/service/job/:id', get_job);
+server.get('/service/job/:id/result/:result', get_job_result);
 
 server.listen(PORT, function() {
   console.log('%s listening at %s', server.name, server.url);
 });
-
