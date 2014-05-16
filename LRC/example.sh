@@ -1,3 +1,3 @@
-Rscript LRC.R --data example/input/data.csv \
-              --rules example/input/rules.txt \
+Rscript LRC.R --data file://example/input/data.csv \
+              --rules file://example/input/rules.txt \
               --checks example/result/checks.csv
