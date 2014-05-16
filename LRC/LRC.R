@@ -13,10 +13,18 @@ opt <- getopt(spec)
 
 #job <- fromJSON(file = args[1])
 main <- function(data_url, rules_url, checks_file){  
+  # TODO add checks for existence of parameters
+
+  # read data into data.frame
   dat <- read.csv(data_url)
+
+  # create an linear rule checking matrix
   E <- editmatrix(readLines(rules_url))
-  
-  checks <- ifelse(violatedEdits(E, dat), 0, 1)
+
+  # check for violatedEdits
+  ve <- violatedEdits(E, dat)
+  # convert to 0 and 1 (opposite of violated!) 
+  checks <- ifelse(ve, 0, 1)
   write.csv( checks, 
              file=checks_file,
              row.names=FALSE,
