@@ -1,14 +1,33 @@
+#! Rscript
 # linear rule checking
+library(getopt)
 library(rjson)
 library(editrules)
 
-args <- commandArgs(trailingOnly = TRUE)
+
+spec = matrix(c(
+  'data'  , 'i', 1, "character",  
+  'rules' , 'r', 1, "character",
+  'checks', 'o', 1, "character"
+), byrow=TRUE, ncol=4)
+opt <- getopt(spec)
+
 #job <- fromJSON(file = args[1])
-rules <- "file://./rules.txt"
-data <- "file//./data.csv"
+main <- function(data_url, rules_url, checks_file){  
+  dat <- read.csv(data_url)
+  E <- editmatrix(readLines(rules_url))
+  
+  checks <- ifelse(violatedEdits(E, dat), 0, 1)
+  write.csv( checks, 
+             file=checks_file,
+             row.names=FALSE,
+             na=""
+  )
+}
 
-dat <- read.csv(data)
-E <- editmatrix(readLines(rules))
+main(opt$data, opt$rules, opt$checks)
 
-result.checks <- violatedEdits(E, dat)
-write.csv(result.checks, file="checks.csv")
+# data_url <- "file://example/input/data.csv"
+# rules_url <- "file://example/input/rules.txt"
+# checks_file <-"example/result/checks.csv"
+# main(data_url, rules_url, checks_file)
