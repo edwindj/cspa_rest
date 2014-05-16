@@ -71,10 +71,10 @@ The minimal information that is needed are:
 - `input`: the input parameters of the service
   - `data`: an url to a CSV file
   - `rules`: an url to a text file with rules
+  - `weights`: an url to a CSV file, optional
 Optional:
-- `on_end`: a callback url. When the job is ended (finished or error), the service will `POST` the job resource to this url.
-- `input` 
-  - `weights`: an url to a CSV file
+- `on_end`: a callback url. When the job is ended (finished or error), the service will `POST` the job resource url to this url.
+
 
 This is the place where new linear rule checking jobs can be submitted and job information can be retrieved
 
