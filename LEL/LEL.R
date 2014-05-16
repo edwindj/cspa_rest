@@ -40,10 +40,10 @@ main <- function(data_url, rules_url, weights_url, adapt_file, status_file){
   )
 }
 
-#main(opt$data, opt$rules, opt$adapt, opt$status)
+main(opt$data, opt$rules, opt$adapt, opt$status)
 
-data_url <- "file://example/input/data.csv"
-rules_url <- "file://example/input/rules.txt"
-adapt_file <-"example/result/adapt.csv"
-status_file <-"example/result/status.csv"
-main(data_url, rules_url, NULL, adapt_file, status_file)
+# data_url <- "file://example/input/data.csv"
+# rules_url <- "file://example/input/rules.txt"
+# adapt_file <-"example/result/adapt.csv"
+# status_file <-"example/result/status.csv"
+# main(data_url, rules_url, NULL, adapt_file, status_file)
