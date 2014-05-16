@@ -1,0 +1,4 @@
+Rscript LEL.R --data {{job.input.data}} \
+              --rules {{job.input.rules}} \
+              --adapt {{job.id}}/result/adapt.csv \
+              --status {{job.id}}/result/status.csv
