@@ -1,0 +1,11 @@
+{
+  "command" : "R",
+  "arguments" : ["--vanilla", "-f", "%%ROOT%%/code/test.R", "--args", "%%JOB%%"],
+  "input" : {
+    "data" : "url"
+  },
+  "output" : {
+    "dataout" : "dataout.csv"
+  },
+  "log" : "log"
+}
