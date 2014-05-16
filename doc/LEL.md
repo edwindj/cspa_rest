@@ -97,7 +97,7 @@ Format in JSON:
 
 Retrieves all active jobs as an array of jobs (see `/job/<id>`)
 
-### `GET` "LEL/job/<id>"
+### `GET LEL/job/<id>`
 
 Returns information on the status of the job and links to the output data.
 If the job is not ended, these may not yet be available.

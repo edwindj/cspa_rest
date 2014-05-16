@@ -143,7 +143,7 @@ Other considerations
 
 Data resource for now are urls, but can be expanded with more intelligence (query, type, dataproviders, etc.)
 
-## Versioning off service
+## Service versioning
 
 A service will apply semantic versioning: a client can ask for a specific version of the service in the HEAD using
 
@@ -161,8 +161,8 @@ We currently do not address:
 Services in this design are responsible for the created output. However in a next version this responsibility may be delegated to a resource management system.
 
 ## data transformation, selection and filtering.
-It is up to the orchestrator/caller for the service to supply the input data in the correct format and syntax. 
-However this may be a general service to transform/select data, which may be combined with the resource manager (it may be implemented as transformation, mapping of filtering query on a resource).
+It is up to the orchestrator/caller of the service to supply the input data in the correct format and syntax. 
+However this may be a general service to transform/select data, which may be combined with the resource manager (it may be implemented as transformation, mapping of filtering query on resources).
 
 ## authorization and authentication.
 In a production system controlling the service must be restricted to an adminstrator. Callers should not be able to see other job information.
