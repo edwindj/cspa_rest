@@ -1,0 +1,7 @@
+{
+	"name" :  "example",
+	"input":{
+		"data"  : "/LRC/example/input/data.csv",
+		"rules" : "/LRC/example/input/rules.csv"
+	}
+}

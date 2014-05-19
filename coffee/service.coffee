@@ -1,39 +1,73 @@
-test = true
-
 fs = require("fs")
+path = require("path")
 mkdirp = require("mkdirp")
+whiskers = require("whiskers")
 restify = require("restify")
+child_process = require("child_process")
+yaml = require("yamljs")
+
 
 timestamp = () ->
 	d = new Date()
 	d.toISOString()
 
 class Service
-	constructor: (@name, @version="0.0.1", @wd=".") ->
+	constructor: (definition) ->
+		# TODO check existence of definition
+		@svc = require definition
+		@name = @svc.name
+		
+		@basepath = path.dirname definition
+		@job_path =  "#{@basepath}/job"
+
+		@svc.version ?= "0.0.0"
+		
 		@counter = @init_counter()
 		@jobs = {}
-		# create a job directory
-
+		@def = JSON.stringify @svc
+	
 	add_to: (@server) ->
-		
 		server.post("/#{@name}", @POST_job);
 		server.post("/#{@name}/job", @POST_job);
 		server.get('/#{@name}/job/:id', @GET_job);
+		console.log "Added service: #{@name}"
 
 	create_job: (name, input, on_end = null) ->
+		@url ?= "#{@server.url}/#{@name}"
 		@counter += 1
 		id = @counter
-		job = new Job(id, "/#{name}/job/#{id}", name, @version, input, {}, on_end)
+		job = new Job(id, "#{@url}/job/#{id}", name, @svc.version, input, {}, on_end)
 		@jobs[job.id] = job
-		wd = @wd
-		mkdirp.sync "#{wd}/job/#{job.id}"
-		job.save @wd
+
+		# create a context in which the template of the definition can be evaluated
+		ctxt = {}
+		ctxt[key] = value for key, value of @svc
+		ctxt.job = job
+		ctxt.service = @
+		# and fill the template with the context
+		svc = JSON.parse whiskers.render @def, ctxt
+
+		for key, value of svc.result
+			job.result[key] = value.url
+		job.command = svc.command
+		wd = @job_path
+
+		mkdirp.sync "#{@job_path}/#{job.id}"
+		job.save @job_path
+		@run_job job
 	
 	run_job: (job) ->
 		job.status = "running"
 		job.started = timestamp()
-		job.save @wd
-	
+		job.save @job_path
+		child_process.exec job.command, {cwd: "#{@basepath}"}, (error, stdout, stderr) ->
+			if error
+				console.log error
+				job.status = "error"
+			else 
+				job.status = "finished"
+			job.save @job_path
+
 	init_counter: () ->
 		0 # TODO improve this
 
@@ -41,7 +75,7 @@ class Service
 		if req.is("json")
 			job = req.body
 			# TODO check input structure
-			job = create_job(job.name, job.input, job.on_end)
+			job = @create_job(job.name, job.input, job.on_end)
 			res.status(201)
 			res.header("Location", job.url)
 			res.send(job);
@@ -50,7 +84,7 @@ class Service
 	GET_job:  (req, res, next) ->
 		id = req.param.id
 		job = @jobs[id]
-		res.status(200);
+		res.status(200) unless not job;
 		res.send(job)
 		next()
 
@@ -62,18 +96,20 @@ class Job
 		@started = null
 		@ended = null
 		@status = "created"
-	save: (basepath) -> 
-		json_path = "#{basepath}/job/#{@id}/job.json"
-		fs.writeFileSync json_path, JSON.stringify(@)
+	save: (job_path) -> 
+		json_path = "#{job_path}/#{@id}/job.json"
+		fs.writeFileSync json_path, JSON.stringify(@, null, 2)
 
 exports.Service = Service
 
 if test?
-	server = restify.createServer();
-	server.pre(restify.pre.userAgentConnection());
-	server.use(restify.bodyParser());
-	svc = new Service("LRC", "0.0.1")
+	svc = new Service("../LRC/service.yaml")
+	
+	server = restify.createServer()
+	server.pre(restify.pre.userAgentConnection())
+	server.use(restify.bodyParser())
+	
 	svc.add_to server
-	server.listen(8080, () ->
-		console.log "listening"
-	)
+	svc.create_job "bla", {data:"d", rules: "r"}
+	svc.create_job "bla2", {data:"d", rules: "r"}
+	#console.log svc

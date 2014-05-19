@@ -1,3 +1,0 @@
-Rscript LRC.R --data {{job.input.data}} \
-              --rules {{job.input.rules}} \
-              --checks {{job.id}}/result/checks.csv
