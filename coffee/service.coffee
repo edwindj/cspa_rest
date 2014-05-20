@@ -32,6 +32,11 @@ class Service
 		server.post("/#{@name}/job", @POST_job);
 		server.get("/#{@name}/job", @GET_jobs);
 		server.get("/#{@name}/job/:id", @GET_job);
+		s = "/#{@name}/job/[^/]+/result/.*"
+		server.get(RegExp("/#{@name}/example/.*"), restify.serveStatic
+			directory: "#{@basepath}/example/",
+			"default": "job.json"
+		)
 		console.log "Added service: #{@name}"
 		@create_job("test", {data: "bla", rules: "bla1"})
 
@@ -80,9 +85,8 @@ class Service
 			job = req.body
 			# TODO check input structure
 			job = @create_job(job.name, job.input, job.on_end)
-			res.status(201)
 			res.header("Location", job.url)
-			res.send(job);
+			res.send(201, job);
 		next()
 
 	GET_job:  (req, res, next) =>
@@ -91,9 +95,8 @@ class Service
 		if not job
 			res.status 404
 			return next(false)
-		console.log job
-		#res.status(200) unless job;
-		res.send(job)
+		#console.log job
+		res.send(200, job)
 		next()
 
 	GET_jobs:  (req, res, next) =>
