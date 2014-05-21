@@ -33,15 +33,17 @@ class Service
 		server.get("/#{@name}/job", @GET_jobs);
 		server.get("/#{@name}/job/:id", @GET_job);
 		s = "/#{@name}/job/[^/]+/result/.*"
-		server.get(RegExp("/#{@name}/example/.*"), restify.serveStatic
-			directory: "#{@basepath}/example/",
-			"default": "job.json"
+
+		server.get(RegExp("/#{@name}/example/?.*"), restify.serveStatic
+			directory: ".",
+			"default": "/#{@name}/example/job.json"
 		)
 		console.log "Added service: #{@name}"
 		@create_job("test", {data: "bla", rules: "bla1"})
 
 	create_job: (name, input, on_end = null) ->
-		@url ?= "#{@server.url}/#{@name}"
+		console.log @server.address()
+		@url = "#{@server.url}/#{@name}"
 		@counter += 1
 		id = @counter
 		job = new Job(id, "#{@url}/job/#{id}", name, @svc.version, input, {}, on_end)
@@ -62,19 +64,21 @@ class Service
 		mkdirp.sync "#{@job_path}/#{job.id}/input"
 		mkdirp.sync "#{@job_path}/#{job.id}/result"
 		job.save @job_path
-		@run_job job
+		job
 	
 	run_job: (job) ->
 		job.status = "running"
 		job.started = timestamp()
 		console.log "job_path = #{@job_path}"
 		job.save @job_path
+		#options = {cwd: "#{@job_path}/#{job.id}/result"}
 		options = {cwd: "#{@basepath}"}
 		cmd = child_process.exec job.command, options, (error, stdout, stderr) ->
 			if error
 				console.log error
 		cmd.on "exit", (code) =>
 			job.status = if code then "error" else "finished"
+			job.ended = timestamp()
 			console.log "exit code: #{code}"
 			job.save @job_path
 	init_counter: () ->
@@ -84,9 +88,12 @@ class Service
 		if req.is("json")
 			job = req.body
 			# TODO check input structure
+			console.log job
 			job = @create_job(job.name, job.input, job.on_end)
+			console.log job
 			res.header("Location", job.url)
 			res.send(201, job);
+			@run_job job
 		next()
 
 	GET_job:  (req, res, next) =>
@@ -97,7 +104,7 @@ class Service
 			return next(false)
 		#console.log job
 		res.send(200, job)
-		next()
+		#next()
 
 	GET_jobs:  (req, res, next) =>
 		console.log @jobs

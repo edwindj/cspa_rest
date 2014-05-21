@@ -25,4 +25,4 @@ command: >
   Rscript LRC.R
   --data {job.input.data}
   --rules {job.input.rules}
-  --checks {wd}/job/{job.id}/checks.csv
+  --checks job/{job.id}/checks.csv
