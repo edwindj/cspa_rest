@@ -23,8 +23,8 @@
       "name": "checks",
       "type": "url",
       "description": null,
-      "url": "{service.url}/job/{job.id}/checks.csv"
+      "url": "{service.url}/job/{job.id}/result/checks.csv"
     }
   },
-  "command": "Rscript LRC.R --data {job.input.data} --rules {job.input.rules} --checks job/{job.id}/checks.csv\n"
+  "command": "Rscript LRC.R --data {job.input.data} --rules {job.input.rules} --checks job/{job.id}/result/checks.csv\n"
 }

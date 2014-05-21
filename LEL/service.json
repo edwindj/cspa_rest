@@ -23,13 +23,13 @@
       "name": "adapt",
       "type": "url",
       "description": null,
-      "url": "{service.url}/job/{job.id}/adapt.csv"
+      "url": "{service.url}/job/{job.id}/result/adapt.csv"
     },
     "status": {
       "name": "status",
       "type": "url",
       "description": null,
-      "url": "{service.url}/job/{job.id}/status.csv"
+      "url": "{service.url}/job/{job.id}/result/status.csv"
     }
   },
   "command": "Rscript LEL.R --data {job.input.data} --rules {job.input.rules} {if job.input.weights}--weights {job.input.weights}{/if} --adapt job/{job.id}/result/adapt.csv --status job/{job.id}/result/status.csv\n"

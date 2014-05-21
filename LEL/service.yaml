@@ -25,12 +25,12 @@ result:
     name: adapt
     type: url
     description: 
-    url: '{service.url}/job/{job.id}/adapt.csv'
+    url: '{service.url}/job/{job.id}/result/adapt.csv'
   status:
     name: status
     type: url
     description: 
-    url: '{service.url}/job/{job.id}/status.csv'
+    url: '{service.url}/job/{job.id}/result/status.csv'
 command: >
   Rscript LEL.R
   --data {job.input.data}
