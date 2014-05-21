@@ -1,7 +1,6 @@
 #! Rscript
 # linear error localization
 library(getopt)
-library(rjson)
 library(editrules)
 
 spec = matrix(c(
