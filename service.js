@@ -53,11 +53,7 @@
         directory: ".",
         "default": "/" + this.name + "/example/job.json"
       }));
-      console.log("Added service: " + this.name);
-      return this.create_job("test", {
-        data: "bla",
-        rules: "bla1"
-      });
+      return console.log("Added service: " + this.name);
     };
 
     Service.prototype.create_job = function(name, input, on_end) {

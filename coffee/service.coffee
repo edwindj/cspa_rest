@@ -39,7 +39,6 @@ class Service
 			"default": "/#{@name}/example/job.json"
 		)
 		console.log "Added service: #{@name}"
-		@create_job("test", {data: "bla", rules: "bla1"})
 
 	create_job: (name, input, on_end = null) ->
 		console.log @server.address()
@@ -77,7 +76,7 @@ class Service
 			if error
 				console.log error
 		cmd.on "exit", (code) =>
-			job.status = if code then "error" else "finished"
+			job.status = if code <> 0 then "error" else "finished"
 			job.ended = timestamp()
 			console.log "exit code: #{code}"
 			job.save @job_path
@@ -90,7 +89,7 @@ class Service
 			# TODO check input structure
 			console.log job
 			job = @create_job(job.name, job.input, job.on_end)
-			console.log job
+			#console.log job
 			res.header("Location", job.url)
 			res.send(201, job);
 			@run_job job

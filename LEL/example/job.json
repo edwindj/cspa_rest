@@ -1,0 +1,7 @@
+{
+	"name" :  "example",
+	"input":{
+		"data"  : "file://./example/input/data.csv",
+		"rules" : "file://./example/input/rules.txt"
+	}
+}
