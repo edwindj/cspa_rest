@@ -35,7 +35,7 @@ function Service(server, servicedir) {
       return next(new Error("Service expect JSON as input."));
     var id = service.jobs.length;
     var ref = service.server.url + "/" + service.name + "/job/" + id;
-    service.jobs[id] = Job(id, req.body.name, ref);
+    service.jobs[id] = Job(id, req.body.name, ref, service.jobdir + "/" + id);
     // TODO check if input is complete and correct
     service.jobs[id].input = req.body.input;
     service.jobs[id].ref = ref;
@@ -48,9 +48,6 @@ function Service(server, servicedir) {
 
   service.start_job = function(id) {
     var job = service.jobs[id];
-
-    fs.mkdirSync(service.jobdir + "/" + id);
-    // TODO handle errors in mkdir
     var wd = service.jobdir + "/" + id;
     var command = whiskers.render(service.definition.command, {
       "service" : service,
