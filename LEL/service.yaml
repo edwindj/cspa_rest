@@ -8,12 +8,12 @@ input:
   data:
     name: data
     type: url
-    description: "url to data to be checked"
+    description: "url to csv file with data to be checked"
     required: yes
   rules:
     name: rules
     type: url
-    description: 'url to rules'
+    description: 'url to text file with rules to be used in checking'
     required: yes
   rules:
     name: weights
@@ -24,13 +24,15 @@ result:
   adapt:
     name: adapt
     type: url
-    description: 
+    description: |
+      file path where "LEL.R" will generate a csv file
     mimetype: text/csv
     filename: adapt.csv
   status:
     name: status
     type: url
-    description: 
+    description: |
+      status of each record (csv file)
     mimetype: text/csv
     filename: status.csv
 command: >

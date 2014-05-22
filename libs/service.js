@@ -1,9 +1,10 @@
-var YAML = require("yamljs")
-var fs = require("fs")
-var whiskers = require("whiskers")
+var YAML = require("yamljs");
+var fs = require("fs");
+var whiskers = require("whiskers");
 var child_process = require("child_process");
-var rimraf = require("rimraf")
+var rimraf = require("rimraf");
 var mkdirp = require("mkdirp");
+var restify = require("restify");
 
 var Job = require("./job.js");
 
@@ -34,15 +35,14 @@ function Service(server, servicedir) {
     if (!req.is("application/json")) 
       return next(new Error("Service expect JSON as input."));
     var id = service.jobs.length;
-    var ref = service.server.url + "/" + service.name + "/job/" + id;
-    service.jobs[id] = Job(id, req.body.name, ref, service.jobdir + "/" + id);
+    var url = service.server.url + "/" + service.name + "/job/" + id;
+    var job = service.jobs[id] = Job(id, req.body.name, url, service.jobdir + "/" + id);
     // TODO check if input is complete and correct
-    service.jobs[id].input = req.body.input;
-    service.jobs[id].ref = ref;
+    job.input = req.body.input;
+    job.url = url;
     service.start_job(id);
-    res.status(201);
-    res.header("Location", service.jobs[id].ref);
-    res.send(service.jobs[id]);
+    res.header("Location", job.url);
+    res.send(201, job);
     return next();
   }
 
@@ -51,25 +51,25 @@ function Service(server, servicedir) {
     var wd = service.jobdir + "/" + id;
     var command = whiskers.render(service.definition.command, {
       "service" : service,
-      "job" : service.jobs[id]
+      "job" : job
     });
     // start job
-    service.jobs[id].run();
+    job.run();
     var proc = child_process.exec(command, { "cwd" : wd });
     // handle finishing of job
     proc.on("error", function(err) {
-      service.jobs[id].error();
+      job.error();
     });
     proc.on("close", function(code, signal) {
       if (code == 0) {
         var result = service.definition.result;
-        service.jobs[id].result = {};
+        job.result = {};
         for (r in result) {
-          service.jobs[id].result[r] = service.jobs[id].ref + "/" + r;
+          job.result[r] = job.url + "/" + r;
         }
-        service.jobs[id].finish();
+        job.finish();
       } else {
-        service.jobs[id].error();
+        job.error();
       }
     });
     // logging
@@ -81,6 +81,10 @@ function Service(server, servicedir) {
 
   service.get_job = function(req, res, next) {
     var id = +req.params.id;
+    var job = service.jobs[id];
+    if (job === undefined){
+      return next(new restify.ResourceNotFoundError("Unknown job"));
+    }
     res.send(service.jobs[id]);
     return next();
   }
@@ -143,8 +147,10 @@ function Service(server, servicedir) {
   server.post("/" + service.name, service.new_job);
   //server.get('/LRC', new_job_form);
   server.get("/" + service.name + "/job/:id", service.get_job);
+  server.get("/" + service.name + "/job/:id/result/:result", service.get_result);
+  // this next line catches the log statement
   server.get("/" + service.name + "/job/:id/:result", service.get_result);
-  server.get("/" + service.name + "/example/:file", service.get_example_data);
+  server.get("/" + service.name + "/example/input/:file", service.get_example_data);
 
   console.log("Created service " + service.name + " on " + server.url + "/" + service.name + ".");
 
