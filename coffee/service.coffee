@@ -36,9 +36,10 @@ class Service
 
 		server.get(RegExp("/#{@name}/example/?.*"), restify.serveStatic
 			directory: ".",
-			"default": "/#{@name}/example/job.json"
+			"default": "#{@name}/example/job.json"
 		)
 		console.log "Added service: #{@name}"
+		console.log path.resolve "."
 
 	create_job: (name, input, on_end = null) ->
 		console.log @server.address()
@@ -76,7 +77,7 @@ class Service
 			if error
 				console.log error
 		cmd.on "exit", (code) =>
-			job.status = if code <> 0 then "error" else "finished"
+			job.status = if code then "error" else "finished"
 			job.ended = timestamp()
 			console.log "exit code: #{code}"
 			job.save @job_path
