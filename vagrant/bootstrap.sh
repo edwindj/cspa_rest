@@ -7,7 +7,7 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
 apt-get update
 
 apt-get install -y r-base-dev r-base 
-apt-get install -y git nodejs npm
+apt-get install -y git nodejs npm node vim
 
 R -e "install.packages(c('editrules','getopt'), repos='http://cran.rstudio.com/')"
 
