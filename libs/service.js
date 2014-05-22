@@ -58,16 +58,16 @@ function Service(server, servicedir) {
     var proc = child_process.exec(command, { "cwd" : wd });
     // handle finishing of job
     proc.on("error", function(err) {
-      service.jobs[id].status = "error";
+      service.jobs[id].error();
     });
     proc.on("close", function(code, signal) {
       if (code == 0) {
-        service.jobs[id].finish();
         var result = service.definition.result;
         service.jobs[id].result = {};
         for (r in result) {
           service.jobs[id].result[r] = service.jobs[id].ref + "/" + r;
         }
+        service.jobs[id].finish();
       } else {
         service.jobs[id].error();
       }
