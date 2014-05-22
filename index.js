@@ -14,4 +14,5 @@ server.listen(PORT, function() {
 // create service
 var cspa = require("./libs/service.js");
 var lrc  = cspa(server, __dirname + "/LRC");
+var lel  = cspa(server, __dirname + "/LEL");
 

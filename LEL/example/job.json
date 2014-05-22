@@ -1,7 +1,7 @@
 {
 	"name" :  "example",
 	"input":{
-		"data"  : "file://./example/input/data.csv",
-		"rules" : "file://./example/input/rules.txt"
+                "data"  : "https://raw.githubusercontent.com/edwindj/cspa_rest/master/LEL/example/input/data.csv",
+                "rules" : "https://raw.githubusercontent.com/edwindj/cspa_rest/master/LEL/example/input/rules.txt"
 	}
 }

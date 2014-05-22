@@ -12,11 +12,10 @@ function Service(server, servicedir) {
   var service = {};
   service.server     = server;
   service.servicedir = servicedir;
-  service.definition = require(service.servicedir + "/service2.yaml");
+  service.definition = require(service.servicedir + "/service.yaml");
   service.name       = service.definition.name;
   service.jobdir     = service.servicedir + "/jobs";
   service.jobs       = [];
-  service.url        = server.r
 
   // remove old jobs
   rimraf(service.jobdir, function(error) {

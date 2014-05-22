@@ -25,16 +25,18 @@ result:
     name: adapt
     type: url
     description: 
-    url: '{service.url}/job/{job.id}/result/adapt.csv'
+    mimetype: text/csv
+    filename: checks.csv
   status:
     name: status
     type: url
     description: 
-    url: '{service.url}/job/{job.id}/result/status.csv'
+    mimetype: text/csv
+    filename: status.csv
 command: >
-  Rscript LEL.R
+  Rscript {service.servicedir}/LEL.R
   --data {job.input.data}
   --rules {job.input.rules}
   {if job.input.weights}--weights {job.input.weights}{/if}
-  --adapt job/{job.id}/result/adapt.csv
-  --status job/{job.id}/result/status.csv
+  --adapt adapt.csv
+  --status status.csv
