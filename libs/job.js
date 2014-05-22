@@ -15,21 +15,14 @@ function Job(id, name, ref, jobdir) {
   // TODO handle errors in mkdir
 
   // internal data
-  console.log("foo");
   job.internal = {};
-  console.log("foo");
   job.internal.dir = jobdir;
-  console.log("foo");
 
   job.store = function() {
-    console.log("bar");
     if (job.internal.dir) {
-    console.log("bart");
       var file = job.internal.dir + "/job.json"
       fs.writeFileSync(file, JSON.stringify(job));
-    console.log("bart");
     }
-    console.log("bar");
   }
   
   job.run = function() {

@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
-echo "deb http://cran.rstudio.com/bin/linux/ubuntu precise/" >> /etc/apt/sources.list
+
+# Install R
+echo "deb http://cran.rstudio.com/bin/linux/ubuntu saucy/" > /etc/apt/sources.list.d/r.list
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
+
 apt-get update
 
-# --force-yes to handle the un-verified deb
-apt-get install r-base-dev r-base -y --force-yes
+apt-get install -y r-base-dev r-base 
 apt-get install -y git nodejs npm
 
 R -e "install.packages(c('editrules','getopt'), repos='http://cran.rstudio.com/')"
