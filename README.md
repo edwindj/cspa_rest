@@ -17,9 +17,13 @@ to install dependencies.
 ```
 $ npm start
 ```
+or (on Ubuntu)
+```
+$ nodejs server.js
+```
 
 ###Services
-Directory [LEL]  and [LRC] contain services for Error Localization and Rule Checking.
+Directory [LEL](LEL)  and [LRC](LRC) contain services for Error Localization and Rule Checking.
 
 # Vagrant
 The directory [vagrant] contains a virtual image box that contains all the software and a running CSPA service that can be tested on `localhost:8080`
