@@ -132,10 +132,22 @@ function Service(server, servicedir) {
     });
   }
 
+  service.get_example_data = function(req, res, next) {
+    var file = service.servicedir + "/example/input/" + req.params.file;
+    // check if file exists
+    fs.readFile(file, function(err, data) {
+      if (err) return next(err);
+      res.status(200);
+      res.end(data);
+      return next();
+    });
+  }
+
   server.post("/" + service.name, service.new_job);
   //server.get('/LRC', new_job_form);
   server.get("/" + service.name + "/job/:id", service.get_job);
   server.get("/" + service.name + "/job/:id/:result", service.get_result);
+  server.get("/" + service.name + "/example/:file", service.get_example_data);
 
   console.log("Created service " + service.name + " on " + server.url + "/" + service.name + ".");
 

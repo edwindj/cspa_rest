@@ -26,7 +26,7 @@ result:
     type: url
     description: 
     mimetype: text/csv
-    filename: checks.csv
+    filename: adapt.csv
   status:
     name: status
     type: url
