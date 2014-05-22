@@ -2,6 +2,9 @@ var YAML = require("yamljs")
 var fs = require("fs")
 var whiskers = require("whiskers")
 var child_process = require("child_process");
+var rimraf = require("rimraf")
+var mkdirp = require("mkdirp");
+
 var Job = require("./job.js");
 
 function Service(server, servicedir) {
@@ -16,6 +19,16 @@ function Service(server, servicedir) {
   service.url        = server.r
 
   // remove old jobs
+  rimraf(service.jobdir, function(error) {
+    if (error) {
+      throw "Failed to clean working directory '" + service.jobdir + "'.";
+    }
+    mkdirp(service.jobdir, function(error) {
+      if (error) 
+        throw "Failed to create working directory '" + service.jobdir + "'.";
+    });
+  });
+  
 
 
   service.new_job = function(req, res, next) {
@@ -77,13 +90,13 @@ function Service(server, servicedir) {
   }
 
 
-  function get_log(job, result) {
+  function get_log(res, next, job, result) {
     if (job.status == "created") {
       res.status(204);
       return next(new Error("Job had not yet started."));
     } 
     var status = job.status == "running" ? 204 : 200;
-    fs.readFile(service.jobdir + "/" + id + "/log", function(err, data) {
+    fs.readFile(service.jobdir + "/" + job.id + "/log", function(err, data) {
       if (err) return next(err);
       res.header('Content-Type', 'text');
       res.status(status);
@@ -100,7 +113,7 @@ function Service(server, servicedir) {
       res.status(403);
       return next(new Error("Undefined job: '" + id + "'."));
     }; 
-    if (result == "log") return get_log(job, result);
+    if (result == "log") return get_log(res, next, job, result);
     if (job.status != "finished") {
       res.status(204);
       res.end()
