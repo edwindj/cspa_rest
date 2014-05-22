@@ -20,9 +20,9 @@ result:
     name: checks
     type: url
     description: 
-    url: '{service.url}/job/{job.id}/checks.csv'
+    url: '{service.url}/job/{job.id}/result/checks.csv'
 command: >
   Rscript LRC.R
   --data {job.input.data}
   --rules {job.input.rules}
-  --checks {wd}/job/{job.id}/checks.csv
+  --checks job/{job.id}/result/checks.csv

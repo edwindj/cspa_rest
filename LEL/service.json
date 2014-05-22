@@ -1,0 +1,36 @@
+{
+  "name": "LEL",
+  "title": "Linear Error Localization",
+  "description": "Linear Error Localization\n",
+  "version": "0.0.1",
+  "wd": ".",
+  "input": {
+    "data": {
+      "name": "data",
+      "type": "url",
+      "description": "url to data to be checked",
+      "require": "yes"
+    },
+    "rules": {
+      "name": "weights",
+      "type": "url",
+      "description": "weights for variable per row",
+      "required": "no"
+    }
+  },
+  "result": {
+    "adapt": {
+      "name": "adapt",
+      "type": "url",
+      "description": null,
+      "url": "{service.url}/job/{job.id}/result/adapt.csv"
+    },
+    "status": {
+      "name": "status",
+      "type": "url",
+      "description": null,
+      "url": "{service.url}/job/{job.id}/result/status.csv"
+    }
+  },
+  "command": "Rscript LEL.R --data {job.input.data} --rules {job.input.rules} {if job.input.weights}--weights {job.input.weights}{/if} --adapt job/{job.id}/result/adapt.csv --status job/{job.id}/result/status.csv\n"
+}

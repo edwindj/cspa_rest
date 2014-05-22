@@ -27,13 +27,23 @@ class Service
 		@def = JSON.stringify @svc
 	
 	add_to: (@server) ->
+
 		server.post("/#{@name}", @POST_job);
 		server.post("/#{@name}/job", @POST_job);
-		server.get('/#{@name}/job/:id', @GET_job);
+		server.get("/#{@name}/job", @GET_jobs);
+		server.get("/#{@name}/job/:id", @GET_job);
+		s = "/#{@name}/job/[^/]+/result/.*"
+
+		server.get(RegExp("/#{@name}/example/?.*"), restify.serveStatic
+			directory: ".",
+			"default": "#{@name}/example/job.json"
+		)
 		console.log "Added service: #{@name}"
+		console.log path.resolve "."
 
 	create_job: (name, input, on_end = null) ->
-		@url ?= "#{@server.url}/#{@name}"
+		console.log @server.address()
+		@url = "#{@server.url}/#{@name}"
 		@counter += 1
 		id = @counter
 		job = new Job(id, "#{@url}/job/#{id}", name, @svc.version, input, {}, on_end)
@@ -50,42 +60,55 @@ class Service
 		for key, value of svc.result
 			job.result[key] = value.url
 		job.command = svc.command
-		wd = @job_path
 
-		mkdirp.sync "#{@job_path}/#{job.id}"
+		mkdirp.sync "#{@job_path}/#{job.id}/input"
+		mkdirp.sync "#{@job_path}/#{job.id}/result"
 		job.save @job_path
-		@run_job job
+		job
 	
 	run_job: (job) ->
 		job.status = "running"
 		job.started = timestamp()
+		console.log "job_path = #{@job_path}"
 		job.save @job_path
-		child_process.exec job.command, {cwd: "#{@basepath}"}, (error, stdout, stderr) ->
+		#options = {cwd: "#{@job_path}/#{job.id}/result"}
+		options = {cwd: "#{@basepath}"}
+		cmd = child_process.exec job.command, options, (error, stdout, stderr) ->
 			if error
 				console.log error
-				job.status = "error"
-			else 
-				job.status = "finished"
+		cmd.on "exit", (code) =>
+			job.status = if code then "error" else "finished"
+			job.ended = timestamp()
+			console.log "exit code: #{code}"
 			job.save @job_path
-
 	init_counter: () ->
 		0 # TODO improve this
 
-	POST_job: (req, res, next) ->
+	POST_job: (req, res, next) =>
 		if req.is("json")
 			job = req.body
 			# TODO check input structure
+			console.log job
 			job = @create_job(job.name, job.input, job.on_end)
-			res.status(201)
+			#console.log job
 			res.header("Location", job.url)
-			res.send(job);
+			res.send(201, job);
+			@run_job job
 		next()
 
-	GET_job:  (req, res, next) ->
-		id = req.param.id
+	GET_job:  (req, res, next) =>
+		id = req.params.id
 		job = @jobs[id]
-		res.status(200) unless not job;
-		res.send(job)
+		if not job
+			res.status 404
+			return next(false)
+		#console.log job
+		res.send(200, job)
+		#next()
+
+	GET_jobs:  (req, res, next) =>
+		console.log @jobs
+		res.send(@jobs)
 		next()
 
 	GET_job_result:  (req, res, next) ->
@@ -98,6 +121,7 @@ class Job
 		@status = "created"
 	save: (job_path) -> 
 		json_path = "#{job_path}/#{@id}/job.json"
+		console.log "Writing job.json -> #{json_path}"
 		fs.writeFileSync json_path, JSON.stringify(@, null, 2)
 
 exports.Service = Service

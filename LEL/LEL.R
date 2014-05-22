@@ -1,7 +1,6 @@
 #! Rscript
 # linear error localization
 library(getopt)
-library(rjson)
 library(editrules)
 
 spec = matrix(c(
@@ -40,7 +39,7 @@ main <- function(data_url, rules_url, weights_url, adapt_file, status_file){
   )
 }
 
-main(opt$data, opt$rules, opt$adapt, opt$status)
+main(opt$data, opt$rules, opt$weights, opt$adapt, opt$status)
 
 # data_url <- "file://example/input/data.csv"
 # rules_url <- "file://example/input/rules.txt"
