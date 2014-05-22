@@ -9,7 +9,7 @@ input:
     name: data
     type: url
     description: "url to data to be checked"
-    require: yes
+    required: yes
   rules:
     name: rules
     type: url
