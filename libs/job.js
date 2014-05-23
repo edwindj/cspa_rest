@@ -1,6 +1,6 @@
 var fs = require("fs")
 
-function Job(id, name, ref, jobdir) {
+function Job(id, name, url, jobdir) {
   var job = {};
   if (id === undefined) throw "Missing id";
   if (name === undefined) throw "Missing name";
@@ -8,19 +8,19 @@ function Job(id, name, ref, jobdir) {
   job.name = name;
   job.created = (new Date()).toISOString();
   job.status = "created";
-  job.ref = ref;
+  job.url = url;
 
   // create job directory
   fs.mkdirSync(jobdir);
   // TODO handle errors in mkdir
 
   // internal data
-  job.internal = {};
-  job.internal.dir = jobdir;
+  internal = {};
+  internal.dir = jobdir;
 
   job.store = function() {
-    if (job.internal.dir) {
-      var file = job.internal.dir + "/job.json"
+    if (internal.dir) {
+      var file = internal.dir + "/job.json"
       fs.writeFileSync(file, JSON.stringify(job));
     }
   }

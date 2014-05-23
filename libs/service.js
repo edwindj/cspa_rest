@@ -23,7 +23,8 @@ function Service(server, servicedir) {
     if (error) {
       throw "Failed to clean working directory '" + service.jobdir + "'.";
     }
-    mkdirp(service.jobdir, function(error) {
+    mkdirp(service.jobdir
+       , function(error) {
       if (error) 
         throw "Failed to create working directory '" + service.jobdir + "'.";
     });
@@ -48,7 +49,7 @@ function Service(server, servicedir) {
 
   service.start_job = function(id) {
     var job = service.jobs[id];
-    var wd = service.jobdir + "/" + id;
+    var wd = service.jobdir + "/" + id + "/result";
     var command = whiskers.render(service.definition.command, {
       "service" : service,
       "job" : job

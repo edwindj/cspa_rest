@@ -10,12 +10,18 @@ input:
     type: url
     description: "url to csv file with data to be checked"
     required: yes
+  metadata:
+    name: metadata
+    type: url
+    description: |
+      url to ddi instance of structure of data
+    required: no
   rules:
     name: rules
     type: url
     description: 'url to text file with rules to be used in checking'
     required: yes
-  rules:
+  weights:
     name: weights
     type: url
     description: weights for variable per row
