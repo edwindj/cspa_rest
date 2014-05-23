@@ -3,13 +3,20 @@ Designing a REST interface for CSPA command line services
 
 ### To install:
 
-First install node.js and npm, see (http://nodejs.org)
+First install **node.js** and **npm**, see (http://nodejs.org)
 
 Then run
 ```
 $ npm install
 ```
 to install dependencies.
+
+
+Install **R** and run
+```S
+R -e "install.packages('getopt','editrules')"
+```
+This will install R packages on which the services depend.
 
 
 ###To run the server:
