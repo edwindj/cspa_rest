@@ -15,6 +15,7 @@ The service is named: `LEL` (Linear Error Localization).
 ```json
    "input" : {
       "data": "http://mysite.com/mydata.csv",
+      "metadata": "http://mysite.com/mydata.xml",
       "rules": "http://mysite.com/myrules.txt",
       "weights": "http://mysite.com/myweights.csv",
   }
@@ -22,6 +23,9 @@ The service is named: `LEL` (Linear Error Localization).
 ### Input: `data`
 The data resource `data` is an international CSV format file (separator= "," and decimal sign = ".") in which the first line are the names of the columns.
 This is the data that should be checked for errors
+
+### Input: `metadata`
+The data resource `metadata` is DDI instance file describing the structure of `data`.
 
 ### Input: `rules`
 The text resource `rules` is an UTF8 text file in which each line contains a linear restriction rule.
@@ -70,6 +74,7 @@ The minimal information that is needed are:
 - `name`: used by the calling process to name this job
 - `input`: the input parameters of the service
   - `data`: an url to a CSV file
+  - `metadata`: an url to a DDI file, optional
   - `rules`: an url to a text file with rules
   - `weights`: an url to a CSV file, optional
 Optional:
@@ -87,6 +92,7 @@ Format in JSON:
 {  "name" : "my_process",
    "input" : {
       "data": "http://mysite.com/mydata.csv",
+      "metadata": "http://mysite.com/mydata.xml",
       "rules": "http://mysite.com/myrules.txt",
       "weigths": "http://mysite.com/myweights.txt",
   },
@@ -112,6 +118,7 @@ Format:
  "status" : "created" | "running" | "finished" | "error",
  "input" : {
     "data": "http://mysite.com/mydata.csv",
+    "metadata": "http://mysite.com/mydata.xml",
     "rules": "http://mysite.com/myrules.txt",
     "weights": "http://mysite.com/weights.txt"
   },
