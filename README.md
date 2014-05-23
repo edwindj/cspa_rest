@@ -35,7 +35,7 @@ Directory [LEL](LEL)  and [LRC](LRC) contain services for Error Localization and
 # Vagrant
 The directory [vagrant] contains a virtual image box that contains all the software and a running CSPA service that can be tested on `localhost:8080`
 
-To install you will need to install `vagrant` and `virtualbox`.
+To install you will need to install [vagrant](http://www.vagrantup.com/) and [virtualbox](https://www.virtualbox.org/).
 
 ```
 $ cd vagrant
