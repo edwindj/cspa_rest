@@ -37,9 +37,9 @@ Directory [LEL](LEL)  and [LRC](LRC) contain services for Error Localization and
 - Start service
 - Goto [LRC/example](LRC/example) (or [LEL/example](LEL/example))
 - execute `post.sh`, this will `POST`  the `job.json` file and create a job (`id = 0`) in the service
-- "http://localhost:8080/LRC/job/0" will show the job information
-- "http://localhost:8080/LRC/job/0/result/checks" will return the output data.
-- "http://localhost:8080/LRC/job/0/log" will return the logging information
+- http://localhost:8080/LRC/job/0 will show the job information
+- http://localhost:8080/LRC/job/0/result/checks will return the output data.
+- http://localhost:8080/LRC/job/0/log will return the logging information
 
 
 ## Vagrant
