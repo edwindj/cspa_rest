@@ -32,8 +32,18 @@ $ nodejs server.js
 ###Services
 Directory [LEL](LEL)  and [LRC](LRC) contain services for Error Localization and Rule Checking.
 
-# Vagrant
-The directory [vagrant] contains a virtual image box that contains all the software and a running CSPA service that can be tested on `localhost:8080`
+# Testing the service
+
+- Start service
+- Goto [LRC/example](LRC/example) (or [LEL/example](LEL/example))
+- execute `post.sh`, this will `POST`  the `job.json` file and create a job (`id = 0`) in the service
+- "http://localhost:8080/LRC/job/0" will show the job information
+- "http://localhost:8080/LRC/job/0/result/checks" will return the output data.
+- "http://localhost:8080/LRC/job/0/log" will return the logging information
+
+
+## Vagrant
+Alternatively you can install a VM image that contains all the software and a running CSPA service that can be tested on `localhost:8080`. 
 
 To install you will need to install [vagrant](http://www.vagrantup.com/) and [virtualbox](https://www.virtualbox.org/).
 
