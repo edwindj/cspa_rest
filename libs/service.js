@@ -41,15 +41,15 @@ function Service(server, servicedir) {
     // TODO check if input is complete and correct
     job.input = req.body.input;
     job.url = url;
-    service.start_job(id);
+    service.start_job(job);
     res.header("Location", job.url);
     res.send(201, job);
     return next();
   }
 
-  service.start_job = function(id) {
-    var job = service.jobs[id];
-    var wd = service.jobdir + "/" + id + "/result";
+  service.start_job = function(job) {
+    var wd = service.jobdir + "/" + job.id + "/result";
+    mkdirp.sync(wd);
     var command = whiskers.render(service.definition.command, {
       "service" : service,
       "job" : job
@@ -66,7 +66,7 @@ function Service(server, servicedir) {
         var result = service.definition.result;
         job.result = {};
         for (r in result) {
-          job.result[r] = job.url + "/" + r;
+          job.result[r] = job.url + "/result/" + r;
         }
         job.finish();
       } else {
@@ -74,7 +74,7 @@ function Service(server, servicedir) {
       }
     });
     // logging
-    var logfile = fs.createWriteStream(wd + "/log");
+    var logfile = fs.createWriteStream(wd + "/../log");
     proc.stderr.on("data", function(data) { logfile.write(data); });
     proc.stdout.on("data", function(data) { logfile.write(data); });
     proc.stdout.on("end", function() { logfile.close(); });
@@ -125,7 +125,7 @@ function Service(server, servicedir) {
       res.status(403);
       return next(new Error("Undefined result: '" + req.params.result + "'."));
     }; 
-    fs.readFile(service.jobdir + "/" + id + "/" + result.filename, function(err, data) {
+    fs.readFile(service.jobdir + "/" + job.id + "/result/" + result.filename, function(err, data) {
       if (err) return next(err);
       res.header('Content-Type', result.mimetype);
       res.status(200);
