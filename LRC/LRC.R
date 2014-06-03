@@ -3,6 +3,7 @@
 library(getopt)
 library(rjson)
 library(editrules)
+source("ddi.R")
 
 spec = matrix(c(
   'data'  , 'i', 1, "character",  
@@ -24,12 +25,17 @@ main <- function(data_url, rules_url, checks_file){
   # check for violatedEdits
   ve <- violatedEdits(E, dat)
   # convert to 0 and 1 (opposite of violated!) 
-  checks <- ifelse(ve, 0, 1)
+  checks <- data.frame(ifelse(ve, 0L, 1L))
   write.csv( checks, 
              file=checks_file,
              row.names=FALSE,
              na=""
   )
+  ddi_path <- sub("\\.csv$", "", checks_file)
+  writeDDISchema( checks, ddi_path
+                , agency="CBS/Statistics Netherlands"
+                , description="Linear Rule Checking results"
+                )
 }
 
 main(opt$data, opt$rules, opt$checks)

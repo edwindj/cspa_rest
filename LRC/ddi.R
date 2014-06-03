@@ -43,7 +43,7 @@ DDI_TMPL <-
 </DDIInstance>
 '
 
-writeDDISchema <- function(x, name, description="", agency="", version="1.0.0", ...){
+writeDDISchema <- function(x, path, description="", agency="", version="1.0.0", ...){
   #DDI_TMPL <- readLines("ddi.xml")
   
   variables=lapply(names(x), function(name){
@@ -59,14 +59,14 @@ writeDDISchema <- function(x, name, description="", agency="", version="1.0.0", 
   #print(variables)
   schema <- whisker.render(DDI_TMPL,
     list( agency = agency
-        , id = name
+        , id = path
         , version = version
         , description = description
         , variables = variables
         , ...
         )
   )
-  ddi <- paste0(name, ".xml")
+  ddi <- paste0(path, ".xml")
   writeLines(schema, ddi)
 }
 
