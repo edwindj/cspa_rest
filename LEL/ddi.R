@@ -19,9 +19,6 @@ DDI_TMPL <-
             {{#is_numeric}}
             <l:NumericRepresentation type="Double"/>
             {{/is_numeric}}
-            {{#is_logical}}
-            <l:NumericRepresentation type="Short"/>
-            {{/is_logical}}
             {{#is_integer}}
             <l:NumericRepresentation type="Integer"/>
             {{/is_integer}}

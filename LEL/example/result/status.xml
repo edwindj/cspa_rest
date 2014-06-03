@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DDIInstance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="ddi:instance:3_1" xmlns:g="ddi:group:3_1" xmlns:r="ddi:reusable:3_1" xmlns:l="ddi:logicalproduct:3_1" id="example/result/status" agency="" version="1.0.0">
+  <g:ResourcePackage id="example/result/status" agency="" version="1.0.0">
+    <g:Purpose id="metadataDescription">
+      <r:Content>
+      
+      </r:Content>
+    </g:Purpose>
+    <g:LogicalProduct>
+      <l:LogicalProduct id="dataSetHeader">
+        <l:VariableScheme id="headerVariables" agency="" version="1.0.0">          <l:Variable id="weight" version="1.0.0">
+          <l:VariableName>weight</l:VariableName>
+          <l:Representation>            <l:NumericRepresentation type="Double"/>          </l:Representation>
+          </l:Variable>          <l:Variable id="elapsed" version="1.0.0">
+          <l:VariableName>elapsed</l:VariableName>
+          <l:Representation>            <l:NumericRepresentation type="Double"/>          </l:Representation>
+          </l:Variable>        </l:VariableScheme>
+      </l:LogicalProduct>
+    </g:LogicalProduct>
+  </g:ResourcePackage>
+</DDIInstance>
+
