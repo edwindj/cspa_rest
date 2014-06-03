@@ -14,7 +14,7 @@ to install dependencies.
 
 Install **R** and run
 ```S
-R -e "install.packages('getopt','editrules')"
+R -e "install.packages('getopt','editrules','whisker')"
 ```
 This will install R packages on which the services depend.
 
