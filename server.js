@@ -1,5 +1,5 @@
 
-var PORT = 8080;
+var PORT = process.env.PORT || 8080;
 
 // initialise server
 var restify = require('restify');
