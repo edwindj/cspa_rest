@@ -16,20 +16,20 @@
 
 In this report we propose a generic REST (REpresentational State Transfer)
 interface, which could be adapted by a large number of services created in the
-CSPA project. Many services are simple data processing steps. They receive one
-or more datasets with some parameters.  They will perform some sort of
-computation, which could take a substantial amount of time and, when finished,
-they return one or more result data sets with some logging information.  Since
-these services all follow the same pattern, it is possible to design a generic
-REST interface for these services. A homogeneous interface for most CSPA
-services would make documenting and using the services much simpler. 
+CSPA project. Many statistical services are simple data processing steps. As 
+input a service receives one or more datasets with some parameters. It will 
+perform some sort of computation, which could take a substantial amount of time. 
+When finished, the service returns one or more result data sets with some 
+logging information.  Since
+each service follows this pattern, it is possible to design a generic
+REST interface for data processing services. 
+A homogeneous interface for most CSPA services would make using and documenting 
+the services much simpler. 
 
-Furthermore, we believe it is possible to implement a wrapper implementing this
-interface which can be used by many of the services (any service which consists
-of a executable which can be run using some command line parameters). This would
-reduce the time to implement a CSPA service considerably.  Furthermore, this
+Furthermore, we believe that it is possible to create a generic REST wrapper implementing this interface that can be used to wrap a command-line CPSA service  with its parameters (CLI). This would
+reduce the time to implement a CSPA service considerably.  This
 also means that institutes can work together on implementing and perfecting this
-wrapper, creating a much more robust and tested interface. 
+wrapper, creating a much more robust and tested interface.
 
 RESTful applications use HTTP requests for CRUD (Create, Read, Update and
 Delete) operations and maps these on the HTTP verbs POST, GET, PUT and DELETE.
@@ -43,18 +43,14 @@ All state is modeled with resources. We consider the following as a resource:
   service.
 \end{itemize}
 
-Therefore, a service is called by creating (posting) a job on the service.  A
-service is called by creating a job on the service. This job contains references
-to the data resources needed by the service. The service adds to this job
+Therefore, invoking the REST service consists of posting a job resource to the REST service. This job contains the parameters and references
+to the data resources that are needed by the (CLI) service. 
+The REST service updates the job resource with
 information on the status of the job and, when the job has finished, references
-to the log files and result data resources. Each job has a unique URL where the
-current status of the job can be retrieved (using a get). 
-
+to the log files and result data resources. Each job has a unique id and URL where the current status of the job can be retrieved (using a GET). 
 
 \section{REST interface}
-
-Since the REST interface revolves around the job resource, first a description
-of this resource is given. After that a description of the REST interface is
+Since the REST interface revolves around the job resource, we give first a description of this resource. After that a description of the REST interface is
 given. 
 
 \subsection{Job}
@@ -68,7 +64,7 @@ the following information:
   \item[version] Version of the service that created this job.
   \item[input] The input is service specific and can consist of:
     \begin{itemize}
-      \item Data resources: URL endpoints to input data, that are to be
+      \item Data resources: URL endpoints to input data and its describing meta data, that are to be
       retrieved using GET by the service
       \item Configuration parameters. Simple types (such as string, integer or
       float) can be passed by value. Complex configuration object can be passed
@@ -86,7 +82,7 @@ the following information:
   \item[started] Time at which the job was started (in UTC)
   \item[finished] Time at which the job has finished (in UTC)
   \item[on\_end] A user can optionally provide a callback URL which gets called
-  (post of the job URL) when the job has finished. 
+  (post of the job URL) when the job has finished. This is a common pattern in asynchronous processing.
 \end{description}
 Some of this information is only available when relevant. For example, the
 \emph{result} of the job resource is only available when the job has finished
@@ -137,7 +133,7 @@ of (two or) three parts: type, data and meta. The exact method of passing data
 around in CSPA is currently undecided. Section~\ref{sec:dataresources} further
 discusses this topic. For the REST interface the exact method is not important.
 The only thing that is important is that data is passed by reference, e.g. by
-passing URLs to data resources. 
+passing URLs to data resources.
 
 When creating a new job, only a subset of the information above needs to be
 passed to the service, namely: \emph{name}, \emph{input} and optionally
@@ -261,13 +257,13 @@ three parts: a type, a URL to the meta data and a URL to the data. In the
 examples above DDI is used for the meta data format and CSV as the data format.
 The current specification of CSPA does not prescribe a single data format.
 However, if we want to be able to connect services with a little effort as
-possible (which is one of the key goals of CSPA) some sort of aggreement has to
+possible (which is one of the key goals of CSPA) some sort of agreement has to
 be reached on the data format used for exchange between the services. 
 
 The exact data and meta data format used by the CSPA services, is not important
 for the exact interface used, except for the following two points:
 \begin{itemize}
-  \item It is probably best to transfer the meta data and the data seperately.
+  \item It is probably best to transfer the meta data and the data separately.
   First, (depending on the meta data format used) parsing the meta data is
   difficult for large data sets when the data and meta data are in the same
   file. Second, services will often be called with different data sets while the
@@ -288,7 +284,7 @@ service indefinitely or are they automatically removed after a certain period?
 
 Another solution is that besides the statistical services there is also a data
 service which is responsible for the data resources. However, even then the
-question remains who is responsible for transfering the data to the data
+question remains who is responsible for transferring the data to the data
 service? The statistical service of the orchestrator? 
 
 \subsubsection{Chaining services}
@@ -325,16 +321,16 @@ page (see~\ref{sec:outputformat}).
 Http allows for authentication. This allows for restrictions on creating jobs,
 deleting jobs, listing jobs, etc and can also be used the restrict access to
 data. Since it is the service which needs to access the data, the service needs
-to be authorised to access certain data resources. The best method for handling
-this needs to be investiged. 
+to be authorized to access certain data resources. The best method for handling
+this needs to be investigated. 
 
 
 \subsection{Generic implementation}
 The interface as discussed above can be used for a large number of services. Any
 service that accepts a number of input data sources with some parameters,
-performs some sort of computation and then returns one or more output datasets
+performs some sort of computation and then returns one or more output data-sets
 can probably be served by the interface presented above. Furthermore, many
-statistical programmes can be run from the command line by passing in some
+statistical programs can be run from the command line by passing in some
 arguments and data sets. For example, SPSS, R and SAS code can be run in this
 way. All the REST service has to do is to translate the input parameters of the
 job into the command line arguments, start the code and subsequently serve the
@@ -344,7 +340,7 @@ amount of configuration is needed to translate the input arguments of the
 submitted job into the command line arguments. 
 
 The advantage of such a generic implementation is that all services using this
-implementation will have exactly the same interface. Also, implementation is
+implementation will have the same structured interface, except for its input and output paramters. Also, implementation is
 much easier. Not everybody implementing a service for CSPA will have to be able
 to implement a REST service. When the implementation is used by multiple
 services, this will also mean that the implementation is tested much more and
@@ -357,8 +353,8 @@ will therefore be much more stable.
 
 In the previous paragraphs a REST interface is proposed which can be used by
 most statistical services. We feel that in order to let CSPA succeed it is
-necessary to have uniformation of the interfaces and uniformation of the data
-format. Therefore, we propose that the REST interface proposed above is used as
+necessary to have uniform interfaces and uniform data
+formats. Therefore, we propose that the REST interface proposed above is used as
 a starting point for a generic REST interface that is to be used by most of the
 CSPA services. 
 
