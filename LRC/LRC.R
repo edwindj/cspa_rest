@@ -1,7 +1,6 @@
 #! Rscript
 # linear rule checking
 library(getopt)
-library(rjson)
 library(editrules)
 #source("ddi.R")
 

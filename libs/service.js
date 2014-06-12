@@ -144,7 +144,7 @@ function Service(server, servicedir, vpath) {
     });
   }
 
-  server.post("/" + service.name, service.new_job);
+  server.post("" + service.name, service.new_job);
   //server.get('/LRC', new_job_form);
   server.get("/" + service.name + "/job/:id", service.get_job);
   server.get("/" + service.name + "/job/:id/result/:result", service.get_result);
