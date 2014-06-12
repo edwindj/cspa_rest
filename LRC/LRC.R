@@ -3,7 +3,7 @@
 library(getopt)
 library(rjson)
 library(editrules)
-source("ddi.R")
+#source("ddi.R")
 
 spec = matrix(c(
   'data'  , 'i', 1, "character",  
@@ -32,10 +32,10 @@ main <- function(data_url, rules_url, checks_file){
              na=""
   )
   ddi_path <- sub("\\.csv$", "", checks_file)
-  writeDDISchema( checks, ddi_path
-                , agency="CBS/Statistics Netherlands"
-                , description="Linear Rule Checking results"
-                )
+  #writeDDISchema( checks, ddi_path
+  #              , agency="CBS/Statistics Netherlands"
+  #              , description="Linear Rule Checking results"
+  #              )
 }
 
 main(opt$data, opt$rules, opt$checks)

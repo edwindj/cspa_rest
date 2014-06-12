@@ -8,13 +8,22 @@
     </g:Purpose>
     <g:LogicalProduct>
       <l:LogicalProduct id="dataSetHeader">
-        <l:VariableScheme id="headerVariables" agency="CBS/Statistics Netherlands" version="1.0.0">          <l:Variable id="num1" version="1.0.0">
+        <l:VariableScheme id="headerVariables" agency="CBS/Statistics Netherlands" version="1.0.0">
+          <l:Variable id="num1" version="1.0.0">
           <l:VariableName>num1</l:VariableName>
-          <l:Representation>            <l:NumericRepresentation type="Integer"/>          </l:Representation>
-          </l:Variable>          <l:Variable id="num2" version="1.0.0">
+          <l:Representation>
+                        
+            <l:NumericRepresentation type="Integer"/>
+                      </l:Representation>
+          </l:Variable>
+          <l:Variable id="num2" version="1.0.0">
           <l:VariableName>num2</l:VariableName>
-          <l:Representation>            <l:NumericRepresentation type="Integer"/>          </l:Representation>
-          </l:Variable>        </l:VariableScheme>
+          <l:Representation>
+                        
+            <l:NumericRepresentation type="Integer"/>
+                      </l:Representation>
+          </l:Variable>
+        </l:VariableScheme>
       </l:LogicalProduct>
     </g:LogicalProduct>
   </g:ResourcePackage>
