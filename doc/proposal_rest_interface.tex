@@ -2,6 +2,8 @@
 
 \usepackage{booktabs}
 \usepackage{fancyvrb}
+\usepackage{natbib}
+\bibliographystyle{chicago}
 
 \title{General REST interface for CSPA services}
 \author{Jan van der Laan \and Edwin de Jonge}
@@ -353,13 +355,14 @@ will therefore be much more stable.
 
 \section{Conclusion}
 
-\begin{itemize}
-  \item The exact contents of the job resource
-\end{itemize}
+In the previous paragraphs a REST interface is proposed which can be used by
+most statistical services. We feel that in order to let CSPA succeed it is
+necessary to have uniformation of the interfaces and uniformation of the data
+format. Therefore, we propose that the REST interface proposed above is used as
+a starting point for a generic REST interface that is to be used by most of the
+CSPA services. 
 
 
-
-
-
+\bibliography{references.bib}
 
 \end{document}
