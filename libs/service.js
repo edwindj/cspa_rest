@@ -8,13 +8,12 @@ var restify = require("restify");
 
 var Job = require("./job.js");
 
-function Service(server, servicedir) {
-
+function Service(server, servicedir, vpath) {  
   var service = {};
   service.server     = server;
   service.servicedir = servicedir;
   service.definition = require(service.servicedir + "/service.yaml");
-  service.name       = service.definition.name;
+  service.name       = (vpath || "") + service.definition.name;
   service.jobdir     = service.servicedir + "/jobs";
   service.jobs       = [];
 
@@ -145,7 +144,7 @@ function Service(server, servicedir) {
     });
   }
 
-  server.post("/" + service.name, service.new_job);
+  server.post("" + service.name, service.new_job);
   //server.get('/LRC', new_job_form);
   server.get("/" + service.name + "/job/:id", service.get_job);
   server.get("/" + service.name + "/job/:id/result/:result", service.get_result);

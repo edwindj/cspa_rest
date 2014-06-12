@@ -1,5 +1,6 @@
-
-var PORT = 8080;
+// to support iisnode
+var PORT = process.env.PORT || 8080;
+var VPATH = process.env.VPATH || "";
 
 // initialise server
 var restify = require('restify');
@@ -13,7 +14,7 @@ server.listen(PORT, function() {
 
 // create service
 var cspa = require("./libs/service.js");
-var lrc  = cspa(server, __dirname + "/LRC");
-var lel  = cspa(server, __dirname + "/LEL");
-var lec  = cspa(server, __dirname + "/LEC");
+var lrc  = cspa(server, __dirname + "/LRC", VPATH);
+var lel  = cspa(server, __dirname + "/LEL", VPATH);
+var lec  = cspa(server, __dirname + "/LEC", VPATH);
 

@@ -5,11 +5,11 @@ Designing a REST interface for CSPA command line services
 
 First install **node.js** and **npm**, see (http://nodejs.org)
 
-Then run
+Then goto the "cspa_rest/" directory and run
 ```
 $ npm install
 ```
-to install dependencies.
+This will install nodejs dependencies for cspa_rest. (The dependencies are given in file "./packages.json")
 
 
 Install **R** and run
@@ -35,7 +35,7 @@ Directory [LEL](LEL)  and [LRC](LRC) contain services for Error Localization and
 # Testing the service
 
 - Start service
-- Goto [LRC/example](LRC/example) (or [LEL/example](LEL/example))
+- Goto [LRC/example](LRC/example) (or [LEL/example](LEL/example), or [LEC/example](LEL/example))
 - execute `post.sh`, this will `POST`  the `job.json` file and create a job (`id = 0`) in the service
 - http://localhost:8080/LRC/job/0 will show the job information
 - http://localhost:8080/LRC/job/0/result/checks will return the output data.
