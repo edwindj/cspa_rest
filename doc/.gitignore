@@ -1,2 +1,6 @@
 *.docx
 *.pdf
+
+# Ignore temporary files from latex
+*.aux
+*.log

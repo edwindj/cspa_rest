@@ -1,14 +1,14 @@
-name: LEL
-title: Linear Error Localization
+name: LEC
+title: Linear Error Correction
 description: |
-  Linear Error Localization
+  Linear Error Correction
 version: 0.0.1
 wd: .
 input:
   data:
     name: data
     type: url
-    description: "url to csv file with data to be checked"
+    description: "url to csv file with data to be corrected"
     required: yes
   metadata:
     name: metadata
@@ -16,10 +16,16 @@ input:
     description: |
       url to ddi instance of structure of data
     required: no
+  localization:
+    name: localization
+    type: url
+    description: |
+       url to csv with localized variables
+    required: yes
   rules:
     name: rules
     type: url
-    description: 'url to text file with rules to be used in checking'
+    description: 'url to text file with rules to be used for correction'
     required: yes
   weights:
     name: weights
@@ -27,24 +33,17 @@ input:
     description: weights for variable per row
     required: no
 result:
-  adapt:
-    name: adapt
+  adjusted:
+    name: adjusted
     type: url
     description: |
-      file path where "LEL.R" will generate a csv file
+      file path where "LEC.R" will generate a csv file
     mimetype: text/csv
-    filename: adapt.csv
-  status:
-    name: status
-    type: url
-    description: |
-      status of each record (csv file)
-    mimetype: text/csv
-    filename: status.csv
+    filename: adjusted.csv
 command: >
-  Rscript {service.servicedir}/LEL.R
+  Rscript {service.servicedir}\LEC.R
   --data {job.input.data}
+  --localization {job.input.localization}
   --rules {job.input.rules}
   {if job.input.weights}--weights {job.input.weights}{/if}
-  --adapt adapt.csv
-  --status status.csv
+  --adjusted adjusted.csv

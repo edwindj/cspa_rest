@@ -1,7 +1,7 @@
 {
 	"name" :  "example",
 	"input":{
-		"data"  : "http://0.0.0.0:8080/LRC/example/data.csv",
-		"rules" : "http://0.0.0.0:8080/LRC/example/rules.txt"
+		"data"  : "http://127.0.0.1:8080/LRC/example/input/data.csv",
+		"rules" : "http://127.0.0.1:8080/LRC/example/input/rules.txt"
 	}
 }

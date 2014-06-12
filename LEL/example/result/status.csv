@@ -1,4 +1,4 @@
-"x","y"
-TRUE,TRUE
-FALSE,TRUE
-FALSE,FALSE
+"weight","elapsed"
+2,0.02
+1,0.02
+0,0.01

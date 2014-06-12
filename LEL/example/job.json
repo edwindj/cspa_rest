@@ -1,7 +1,7 @@
 {
 	"name" :  "example",
 	"input":{
-                "data"  : "http://0.0.0.0:8080/LEL/example/data.csv",
-                "rules" : "http://0.0.0.0:8080/LEL/example/rules.txt"
+                "data"  : "http://localhost:8080/LEL/example/input/data.csv",
+                "rules" : "http://localhost:8080/LEL/example/input/rules.txt"
 	}
 }
