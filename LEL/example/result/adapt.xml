@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DDIInstance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="ddi:instance:3_1" xmlns:g="ddi:group:3_1" xmlns:r="ddi:reusable:3_1" xmlns:l="ddi:logicalproduct:3_1" id="example/result/adapt" agency="" version="1.0.0">
+  <g:ResourcePackage id="example/result/adapt" agency="" version="1.0.0">
+    <g:Purpose id="metadataDescription">
+      <r:Content>
+      
+      </r:Content>
+    </g:Purpose>
+    <g:LogicalProduct>
+      <l:LogicalProduct id="dataSetHeader">
+        <l:VariableScheme id="headerVariables" agency="" version="1.0.0">          <l:Variable id="x" version="1.0.0">
+          <l:VariableName>x</l:VariableName>
+          <l:Representation>            <l:NumericRepresentation type="Integer"/>          </l:Representation>
+          </l:Variable>          <l:Variable id="y" version="1.0.0">
+          <l:VariableName>y</l:VariableName>
+          <l:Representation>            <l:NumericRepresentation type="Integer"/>          </l:Representation>
+          </l:Variable>        </l:VariableScheme>
+      </l:LogicalProduct>
+    </g:LogicalProduct>
+  </g:ResourcePackage>
+</DDIInstance>
+

@@ -3,6 +3,8 @@
 library(getopt)
 library(editrules)
 
+source("ddi.R")
+
 spec = matrix(c(
   'data'    , 'i', 1, "character",  
   'rules'   , 'r', 1, "character",
@@ -31,12 +33,18 @@ main <- function(data_url, rules_url, weights_url, adapt_file, status_file){
              row.names=FALSE,
              na=""
   )
-             
-  write.csv( le$status[c("weight", "elapsed")], 
+  adapt <- data.frame(ifelse(le$adapt, 1L, 0L))
+  adapt_ddi <- sub("\\.csv$", "", adapt_file)
+  writeDDISchema(adapt, adapt_ddi)
+  
+  status <- le$status[c("weight", "elapsed")]
+  write.csv( status, 
              file=status_file,
              row.names=FALSE,
              na=""
   )
+  status_ddi <- sub("\\.csv$", "", status_file)
+  writeDDISchema(status, status_ddi)
 }
 
 main(opt$data, opt$rules, opt$weights, opt$adapt, opt$status)
