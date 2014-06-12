@@ -9,7 +9,7 @@ Then goto the "cspa_rest/" directory and run
 ```
 $ npm install
 ```
-This will nodejs dependencies for cspa_rest. (The dependencies are given in file "./packages.json")
+This will install nodejs dependencies for cspa_rest. (The dependencies are given in file "./packages.json")
 
 
 Install **R** and run
