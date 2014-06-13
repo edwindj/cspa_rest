@@ -41,7 +41,7 @@ result:
     mimetype: text/csv
     filename: adjusted.csv
 command: >
-  Rscript {service.servicedir}\LEC.R
+  Rscript {service.servicedir}/LEC.R
   --data {job.input.data}
   --localization {job.input.localization}
   --rules {job.input.rules}

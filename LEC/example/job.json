@@ -1,8 +1,8 @@
 {
 	"name" :  "example",
 	"input":{
-		"data"  : "http://127.0.0.1:8081/LEC/example/input/data.csv",
-		"localization"  : "http://127.0.0.1:8081/LEC/example/input/localization.csv",
-		"rules" : "http://127.0.0.1:8081/LEC/example/input/rules.csv"
+		"data"  : "http://127.0.0.1:8080/LEC/example/input/data.csv",
+		"localization"  : "http://127.0.0.1:8080/LEC/example/input/localization.csv",
+		"rules" : "http://127.0.0.1:8080/LEC/example/input/rules.csv"
 	}
 }
