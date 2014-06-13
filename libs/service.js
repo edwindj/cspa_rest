@@ -79,6 +79,25 @@ function Service(server, servicedir, vpath) {
     proc.stdout.on("end", function() { logfile.close(); });
   }
 
+  service.list_jobs = function(req, res, next) {
+    if (req.accepts("text/html")) {
+      fs.readFile(service.servicedir + "/html/jobs.html", function(err, template) {
+        if (err) return next(err);
+        res.header('Content-Type', 'text/html');
+        res.status(200);
+        var html = whiskers.render(template, {
+          "service" : service,
+          "jobs" : service.jobs
+        });
+        res.end(html);
+        return next();
+      });
+    } else {
+      res.send(service.jobs);
+      return next();
+    }
+  }
+
   service.get_job = function(req, res, next) {
     // Retrieve the job from the job list
     var id = +req.params.id;
@@ -95,7 +114,6 @@ function Service(server, servicedir, vpath) {
         if (err) return next(err);
         res.header('Content-Type', 'text/html');
         res.status(200);
-        var job = service.jobs[id];
         var html = whiskers.render(template, {
           "service" : service,
           "job" : job
@@ -165,7 +183,7 @@ function Service(server, servicedir, vpath) {
   }
 
   server.post("" + service.name, service.new_job);
-  //server.get('/LRC', new_job_form);
+  server.get("" + service.name + "/job", service.list_jobs);
   server.get("/" + service.name + "/job/:id", service.get_job);
   server.get("/" + service.name + "/job/:id/result/:result", service.get_result);
   // this next line catches the log statement
