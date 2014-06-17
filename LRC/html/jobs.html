@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Job</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Listing of jobs at service <i>{service.definition.title}</i></h1>
+
+      <table class="table">
+        <tr>
+          <th>Name</th>
+          <th>ID</th>
+          <th>Status</th>
+          <th>Created</th>
+        </tr>
+        {for job in jobs}
+          <tr>
+            <td>{job.name}</td>
+            <td><a href="{job.url}">{job.id}</a></td>
+            <td>{job.status}</td>
+            <td>{job.created}</td>
+          </tr>
+        {/for}
+      </table>
+
+    </div>
+  </body>
+</html>
+

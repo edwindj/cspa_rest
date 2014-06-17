@@ -79,14 +79,52 @@ function Service(server, servicedir, vpath) {
     proc.stdout.on("end", function() { logfile.close(); });
   }
 
+  service.list_jobs = function(req, res, next) {
+    if (req.accepts("text/html")) {
+      fs.readFile(service.servicedir + "/html/jobs.html", function(err, template) {
+        if (err) return next(err);
+        res.header('Content-Type', 'text/html');
+        res.status(200);
+        var html = whiskers.render(template, {
+          "service" : service,
+          "jobs" : service.jobs
+        });
+        res.end(html);
+        return next();
+      });
+    } else {
+      res.send(service.jobs);
+      return next();
+    }
+  }
+
   service.get_job = function(req, res, next) {
+    // Retrieve the job from the job list
     var id = +req.params.id;
     var job = service.jobs[id];
     if (job === undefined){
       return next(new restify.ResourceNotFoundError("Unknown job"));
     }
-    res.send(service.jobs[id]);
-    return next();
+    // When the client accepts html return a web page describing the job; otherwise
+    // return the json object of the job. In this way webbrowsers (which accept both
+    // html and json) will receive the html. The disadvantage is that clients wishing
+    // to have json have to explicitly request json. 
+    if (req.accepts("text/html")) {
+      fs.readFile(service.servicedir + "/html/job.html", function(err, template) {
+        if (err) return next(err);
+        res.header('Content-Type', 'text/html');
+        res.status(200);
+        var html = whiskers.render(template, {
+          "service" : service,
+          "job" : job
+        });
+        res.end(html);
+        return next();
+      });
+    } else {
+      res.send(service.jobs[id]);
+      return next();
+    }
   }
 
 
@@ -183,7 +221,7 @@ function Service(server, servicedir, vpath) {
   }
 
   server.post("" + service.name, service.new_job);
-  //server.get('/LRC', new_job_form);
+  server.get("" + service.name + "/job", service.list_jobs);
   server.get("/" + service.name + "/job/:id", service.get_job);
 
   server.get(RegExp("/" +  service.name + "/job/([^/]+)/result/(.*)"), service.get_result2);
