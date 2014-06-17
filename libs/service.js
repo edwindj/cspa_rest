@@ -16,6 +16,7 @@ function Service(server, servicedir, vpath) {
   service.name       = (vpath || "") + service.definition.name;
   service.jobdir     = service.servicedir + "/jobs";
   service.jobs       = [];
+  service.result_files = {};
 
   // remove old jobs
   rimraf(service.jobdir, function(error) {
@@ -44,6 +45,20 @@ function Service(server, servicedir, vpath) {
     res.header("Location", job.url);
     res.send(201, job);
     return next();
+  }
+
+  function make_path(schema, result, path){
+    result = result || [];
+    path = path || "";
+    return result;
+  }
+
+  function assemble_result(definition){
+    var result = {};
+    for (var i in definition.properties){
+      var p = definition.properties[i];
+      result[p] = {};
+    }
   }
 
   service.start_job = function(job) {
