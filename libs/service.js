@@ -182,13 +182,56 @@ function Service(server, servicedir, vpath) {
     });
   }
 
+  service.get_result2 = function(req, res, next){
+    var id = req.params[0];
+    var path = req.params[1];
+
+    var job = service.jobs[id];
+    if (job === undefined) {
+      res.status(403);
+      return next(new Error("Undefined job: '" + id + "'."));
+    }; 
+
+    if (job.status != "finished") {
+      res.status(204);
+      res.end()
+      return next();
+    }
+
+    var result = service.definition.result;
+    var parts = path.split("/");
+    for (var p in parts){
+      if (result  !== undefined){ 
+        result = result[parts[p]];
+      }
+    }
+    
+    if (result === undefined || result.filename === undefined) {
+      res.status(403);
+      return next(new Error("Undefined result: '" + path + "'."));
+    }; 
+    
+    fs.readFile(service.jobdir + "/" + job.id + "/result/" + result.filename, function(err, data) {
+      if (err) return next(err);
+      res.header('Content-Type', result.mimetype);
+      res.status(200);
+      res.end(data);
+      return next();
+    });
+  }
+
   server.post("" + service.name, service.new_job);
   server.get("" + service.name + "/job", service.list_jobs);
   server.get("/" + service.name + "/job/:id", service.get_job);
+
+  server.get(RegExp("/" +  service.name + "/job/([^/]+)/result/(.*)"), service.get_result2);
+
   server.get("/" + service.name + "/job/:id/result/:result", service.get_result);
   // this next line catches the log statement
+
   server.get("/" + service.name + "/job/:id/:result", service.get_result);
   server.get("/" + service.name + "/example/input/:file", service.get_example_data);
+  
 
   console.log("Created service " + service.name + " on " + server.url + "/" + service.name + ".");
 
