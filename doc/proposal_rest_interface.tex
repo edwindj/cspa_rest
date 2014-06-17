@@ -1,5 +1,10 @@
 \documentclass[a4paper]{article}
 
+\usepackage[default,osfigures,scale=0.95]{opensans} %% Alternatively
+%% use the option 'defaultsans' instead of 'default' to replace the
+%% sans serif font only.
+\usepackage[T1]{fontenc}
+
 \usepackage{booktabs}
 \usepackage{fancyvrb}
 \usepackage{natbib}
@@ -12,24 +17,35 @@
 
 \maketitle
 
+\begin{abstract}
+A generic REST interface is proposed which can be used by many of the services
+in CSPA. Furthermore, it is possible to develop a generic implementation which
+can be used to wrap the REST interface around an existing service making
+implemenatation much more simple. A generic interface used by most of the
+services would makes it easier to implement systems that use the services.
+\end{abstract}
+
 \section{Introduction}
 
 In this report we propose a generic REST (REpresentational State Transfer)
 interface, which could be adapted by a large number of services created in the
-CSPA project. Many statistical services are simple data processing steps. As 
-input a service receives one or more datasets with some parameters. It will 
-perform some sort of computation, which could take a substantial amount of time. 
-When finished, the service returns one or more result data sets with some 
-logging information.  Since
-each service follows this pattern, it is possible to design a generic
-REST interface for data processing services. 
-A homogeneous interface for most CSPA services would make using and documenting 
-the services much simpler. 
+CSPA project \citep{cspa2013}. Many statistical services are simple data
+processing steps. As input a service receives one or more datasets with some
+parameters. It will perform some sort of computation, which could take a
+substantial amount of time.  When finished, the service returns one or more
+result data sets with some logging information.  Since many services, especially
+in phase 5 of the GSBPM \citep{gsbpm2013}, follow this
+pattern, it is possible to design a generic REST interface for data processing
+services.  A homogeneous interface for most CSPA services would make using and
+documenting the services much simpler. 
 
-Furthermore, we believe that it is possible to create a generic REST wrapper implementing this interface that can be used to wrap a command-line CPSA service  with its parameters (CLI). This would
-reduce the time to implement a CSPA service considerably.  This
-also means that institutes can work together on implementing and perfecting this
-wrapper, creating a much more robust and tested interface.
+Furthermore, we believe that it is possible to create a generic REST wrapper
+implementing this interface that can be used to wrap a command-line CPSA service
+with its parameters (CLI). This would reduce the time to implement a CSPA
+service considerably.  This also means that institutes can work together on
+implementing and perfecting this wrapper, creating a much more robust and tested
+interface and that institutes implementing a service do not need to have
+extensive knowlegde on implementing REST interfaces. 
 
 RESTful applications use HTTP requests for CRUD (Create, Read, Update and
 Delete) operations and maps these on the HTTP verbs POST, GET, PUT and DELETE.
@@ -43,14 +59,17 @@ All state is modeled with resources. We consider the following as a resource:
   service.
 \end{itemize}
 
-Therefore, invoking the REST service consists of posting a job resource to the REST service. This job contains the parameters and references
-to the data resources that are needed by the (CLI) service. 
-The REST service updates the job resource with
-information on the status of the job and, when the job has finished, references
-to the log files and result data resources. Each job has a unique id and URL where the current status of the job can be retrieved (using a GET). 
+Therefore, invoking the REST service consists of posting a job resource to the
+REST service. This job contains the parameters and references to the data
+resources that are needed by the (CLI) service.  The REST service updates the
+job resource with information on the status of the job and, when the job has
+finished, references to the log files and result data resources. Each job has a
+unique id and URL where the current status of the job can be retrieved (using a
+GET). 
 
 \section{REST interface}
-Since the REST interface revolves around the job resource, we give first a description of this resource. After that a description of the REST interface is
+Since the REST interface revolves around the job resource, we give first a
+description of this resource. After that a description of the REST interface is
 given. 
 
 \subsection{Job}
@@ -289,7 +308,7 @@ service? The statistical service of the orchestrator?
 
 \subsubsection{Chaining services}
 In the current design it is relatively easy to chain the services. A service B
-which uses the output from service B can be passed a URL to the output of
+which uses the output from service A can be passed a URL to the output of
 service A. All the orchestrator has to do is create the jobs on the different
 services passing in the correct URLs. 
 
