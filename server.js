@@ -8,13 +8,14 @@ var server = restify.createServer();
 server.pre(restify.pre.userAgentConnection());
 server.use(restify.bodyParser());
 
-server.listen(PORT, function() {
+var cspa = require("./libs/service.js");
+
+server.listen(PORT, "127.0.0.1", function() {
   console.log("Service started.");
+  // create service
+  var lrc  = cspa(server, __dirname + "/LRC", VPATH);
+  var lel  = cspa(server, __dirname + "/LEL", VPATH);
+  var lec  = cspa(server, __dirname + "/LEC", VPATH);
 });
 
-// create service
-var cspa = require("./libs/service.js");
-var lrc  = cspa(server, __dirname + "/LRC", VPATH);
-var lel  = cspa(server, __dirname + "/LEL", VPATH);
-var lec  = cspa(server, __dirname + "/LEC", VPATH);
 

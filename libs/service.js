@@ -71,6 +71,7 @@ function Service(server, servicedir, vpath) {
       } else {
         job.error();
       }
+      job.log = job.url + "/log";
     });
     // logging
     var logfile = fs.createWriteStream(wd + "/../log");
@@ -128,44 +129,25 @@ function Service(server, servicedir, vpath) {
   }
 
 
-  function get_log(res, next, job, result) {
+  service.get_log = function(req, res, next) {
+    var id = +req.params.id;
+    var job = service.jobs[id];
+    
+    if (job === undefined) {
+      res.status(403);
+      return next(new Error("Undefined job: '" + id + "'."));
+    }; 
+  
     if (job.status == "created") {
       res.status(204);
       return next(new Error("Job had not yet started."));
     } 
+    
     var status = job.status == "running" ? 204 : 200;
     fs.readFile(service.jobdir + "/" + job.id + "/log", function(err, data) {
       if (err) return next(err);
       res.header('Content-Type', 'text');
       res.status(status);
-      res.end(data);
-      return next();
-    });
-  }
-
-  service.get_result = function(req, res, next) {
-    var id = +req.params.id;
-    var result = req.params.result;
-    var job = service.jobs[id];
-    if (job === undefined) {
-      res.status(403);
-      return next(new Error("Undefined job: '" + id + "'."));
-    }; 
-    if (result == "log") return get_log(res, next, job, result);
-    if (job.status != "finished") {
-      res.status(204);
-      res.end()
-      return next();
-    }
-    var result = service.definition.result[result]
-    if (result === undefined) {
-      res.status(403);
-      return next(new Error("Undefined result: '" + req.params.result + "'."));
-    }; 
-    fs.readFile(service.jobdir + "/" + job.id + "/result/" + result.filename, function(err, data) {
-      if (err) return next(err);
-      res.header('Content-Type', result.mimetype);
-      res.status(200);
       res.end(data);
       return next();
     });
@@ -182,7 +164,7 @@ function Service(server, servicedir, vpath) {
     });
   }
 
-  service.get_result2 = function(req, res, next){
+  service.get_result = function(req, res, next){
     var id = req.params[0];
     var path = req.params[1];
 
@@ -223,13 +205,9 @@ function Service(server, servicedir, vpath) {
   server.post("" + service.name, service.new_job);
   server.get("" + service.name + "/job", service.list_jobs);
   server.get("/" + service.name + "/job/:id", service.get_job);
-
-  server.get(RegExp("/" +  service.name + "/job/([^/]+)/result/(.*)"), service.get_result2);
-
-  server.get("/" + service.name + "/job/:id/result/:result", service.get_result);
+  server.get(RegExp("/" +  service.name + "/job/([^/]+)/result/(.*)"), service.get_result);
   // this next line catches the log statement
-
-  server.get("/" + service.name + "/job/:id/:result", service.get_result);
+  server.get("/" + service.name + "/job/:id/log", service.get_log);
   server.get("/" + service.name + "/example/input/:file", service.get_example_data);
   
 
