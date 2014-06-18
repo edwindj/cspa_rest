@@ -2,17 +2,18 @@
 # linear rule checking
 library(getopt)
 library(editrules)
-#source("ddi.R")
+library(rjson)
 
 spec = matrix(c(
   'data'  , 'i', 1, "character",  
   'rules' , 'r', 1, "character",
-  'checks', 'o', 1, "character"
+  'checks', 'o', 1, "character",
+  'checks_schema', 's', 2, "character"
 ), byrow=TRUE, ncol=4)
 opt <- getopt(spec)
 
 #job <- fromJSON(file = args[1])
-main <- function(data_url, rules_url, checks_file){  
+main <- function(data_url, rules_url, checks_file, checks_schema){  
   # TODO add checks for existence of parameters
 
   # read data into data.frame
@@ -30,14 +31,32 @@ main <- function(data_url, rules_url, checks_file){
              row.names=FALSE,
              na=""
   )
-  ddi_path <- sub("\\.csv$", "", checks_file)
-  #writeDDISchema( checks, ddi_path
-  #              , agency="CBS/Statistics Netherlands"
-  #              , description="Linear Rule Checking results"
-  #              )
+  if (is.null(checks_schema)){
+    checks_schema <- sub("\\.csv$", ".json", checks_file)
+  }
+  writeJTS(checks, path=checks_schema)
 }
 
-main(opt$data, opt$rules, opt$checks)
+writeJTS <- function(x, path, ...){
+  fields <- lapply(names(x), function(name){
+    v <- x[[name]]
+    l <- list(name=name, title=name)
+    type = class(v)
+    l$type = switch( type,
+                     double    = "number",
+                     integer   = "integer",
+                     character = "string",
+                     factor    = "string",
+                     Date      = "datetime",
+                     "Any"
+                    )
+    l
+  })
+  schema <- list(fields = fields)
+  writeLines(toJSON(schema), con = path)
+}
+
+main(opt$data, opt$rules, opt$checks, opt$checks_schema)
 
 # data_url <- "file://example/input/data.csv"
 # rules_url <- "file://example/input/rules.txt"

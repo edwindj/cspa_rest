@@ -44,10 +44,10 @@ function Service(server, servicedir, vpath) {
     job.input = req.body.input;
     job.url = url;
 
-    var result = whiskers.render(service.definition.result_tmpl, {
+    var result = JSON.parse(whiskers.render(service.definition.result_tmpl, {
       "service" : service,
       "job" : job
-    });
+    }));
     job.result = result;
 
     service.start_job(job);
@@ -156,6 +156,7 @@ function Service(server, servicedir, vpath) {
           "service" : service,
           "job" : job
         });
+        console.log(job)
         res.end(html);
         return next();
       });
