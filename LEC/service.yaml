@@ -33,13 +33,15 @@ input:
     description: weights for variable per row
     required: no
 result:
-  adjusted:
-    name: adjusted
-    type: url
-    description: |
-      file path where "LEC.R" will generate a csv file
-    mimetype: text/csv
-    filename: adjusted.csv
+  type: object
+  properties:
+    adjusted:
+      type: string
+      description: |
+        file path where "LEC.R" will generate a csv file
+      mimetype: text/csv
+      filename: adjusted.csv
+      value: "{job.url}/result/adjusted"
 command: >
   Rscript {service.servicedir}/LEC.R
   --data {job.input.data}

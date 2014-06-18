@@ -16,7 +16,11 @@ function Service(server, servicedir, vpath) {
   service.name       = (vpath || "") + service.definition.name;
   service.jobdir     = service.servicedir + "/jobs";
   service.jobs       = [];
-  service.result_files = {};
+
+  service.files       = {};
+  service.definition.result_tmpl = make_path(service.definition.result);
+
+  //console.log(service.result_tmpl, service.files);
 
   // remove old jobs
   rimraf(service.jobdir, function(error) {
@@ -29,8 +33,6 @@ function Service(server, servicedir, vpath) {
         throw "Failed to create working directory '" + service.jobdir + "'.";
     });
   });
-  
-
 
   service.new_job = function(req, res, next) {
     if (!req.is("application/json")) 
@@ -41,6 +43,13 @@ function Service(server, servicedir, vpath) {
     // TODO check if input is complete and correct
     job.input = req.body.input;
     job.url = url;
+
+    var result = whiskers.render(service.definition.result_tmpl, {
+      "service" : service,
+      "job" : job
+    });
+    job.result = result;
+
     service.start_job(job);
     res.header("Location", job.url);
     res.send(201, job);
@@ -48,9 +57,22 @@ function Service(server, servicedir, vpath) {
   }
 
   function make_path(schema, result, path){
-    result = result || [];
+    result = result || {};
     path = path || "";
-    return result;
+    for (var name in schema.properties){
+      var key_path = path + "/" + name;
+      var prop = schema.properties[name];
+      if (prop.type == "object"){
+        result[name] = {};
+        make_path(prop, result[name], key_path);
+      } else {
+        result[name] = prop.value;
+        if (prop.filename !== undefined){
+          service.files[key_path] = prop;
+        }
+      }
+    }
+    return JSON.stringify(result);
   }
 
   function assemble_result(definition){
@@ -77,12 +99,12 @@ function Service(server, servicedir, vpath) {
     });
     proc.on("close", function(code, signal) {
       if (code == 0) {
-        var result = service.definition.result;
+/*        var result = service.definition.result;
         job.result = {};
         for (r in result) {
           job.result[r] = job.url + "/result/" + r;
         }
-        job.finish();
+*/        job.finish();
       } else {
         job.error();
       }
@@ -181,7 +203,7 @@ function Service(server, servicedir, vpath) {
 
   service.get_result = function(req, res, next){
     var id = req.params[0];
-    var path = req.params[1];
+    var path = "/" + req.params[1];
 
     var job = service.jobs[id];
     if (job === undefined) {
@@ -195,15 +217,8 @@ function Service(server, servicedir, vpath) {
       return next();
     }
 
-    var result = service.definition.result;
-    var parts = path.split("/");
-    for (var p in parts){
-      if (result  !== undefined){ 
-        result = result[parts[p]];
-      }
-    }
-    
-    if (result === undefined || result.filename === undefined) {
+    var result = service.files[path];    
+    if (result === undefined) {
       res.status(403);
       return next(new Error("Undefined result: '" + path + "'."));
     }; 

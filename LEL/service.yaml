@@ -27,20 +27,24 @@ input:
     description: weights for variable per row
     required: no
 result:
-  adapt:
-    name: adapt
-    type: url
-    description: |
-      file path where "LEL.R" will generate a csv file
-    mimetype: text/csv
-    filename: adapt.csv
-  status:
-    name: status
-    type: url
-    description: |
-      status of each record (csv file)
-    mimetype: text/csv
-    filename: status.csv
+  type: "object"
+  properties:
+    adapt:
+      name: adapt
+      type: string
+      description: |
+        file path where "LEL.R" will generate a csv file
+      mimetype: text/csv
+      filename: adapt.csv
+      value: "{job.url}/result/adapt"
+    status:
+      name: status
+      type: string
+      description: |
+        status of each record (csv file)
+      mimetype: text/csv
+      filename: status.csv
+      value: "{job.url}/result/status"
 command: >
   Rscript {service.servicedir}/LEL.R
   --data {job.input.data}
