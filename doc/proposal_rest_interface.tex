@@ -16,11 +16,22 @@
 \author{\textbf{Statistics Netherlands}\\ 
 Jan van der Laan, Edwin de Jonge\\[1ex]
 \textbf{Istat}\\
-Monica Scannapieco, Diego Zardetto}
+Monica Scannapieco, Diego Zardetto%
+}
+
+
+\newcommand\blfootnote[1]{%
+  \begingroup
+  \renewcommand\thefootnote{}\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \endgroup
+}
 
 \begin{document}
 
 \maketitle
+
+\blfootnote{We thank Dick Woensdrecht for his helpful comments.}
 
 \begin{abstract}
 A generic REST interface is proposed which can be used by many of the services
@@ -38,11 +49,13 @@ CSPA project \citep{cspa2013}. Many statistical services are simple data
 processing steps. As input a service receives one or more datasets with some
 parameters. It will perform some sort of computation, which could take a
 substantial amount of time.  When finished, the service returns one or more
-result data sets with some logging information.  Since many services, especially
-in phase 5 of the GSBPM \citep{gsbpm2013}, follow this
-pattern, it is possible to design a generic REST interface for data processing
-services.  A homogeneous interface for most CSPA services would make using and
-documenting the services much simpler. 
+result data sets with some logging information.  Since many services,
+especially in phase 5 of the GSBPM \citep{gsbpm2013}, follow this pattern, it
+is possible to design a generic REST interface for data processing services. For
+other services such a data services (another important class of services)
+another interface will probably be more appropriate.  A homogeneous interface
+for most CSPA services would make using and documenting the services much
+simpler. 
 
 As just mentioned, the interface will focus on services which will process (large
 amounts of) data. These services have some specific issues that the proposed
@@ -52,18 +65,16 @@ request) to the service.  Therefore, a reference to the data sources is passed
 to the service and the service is responsible for retrieving the data. This is
 also a common pattern in REST where not the contents of resources are passed
 around but URLs to the resources.  Second, processing generally takes too long
-to handle synchronously. Therefore, processing is done asynchronously.  Other
-services such as data services (another important class of services) will
-probably benefit from a different interface. 
+to handle synchronously. Therefore, processing is done asynchronously.  
 
-Besides proposing a generic interface for data processing services, we,
-furthermore, that it is possible to create a generic REST wrapper implementing
-this interface that can be used to wrap a command-line CPSA service with its
+Besides proposing a generic interface for data processing services, we believe
+that it is possible to create a generic REST wrapper implementing this
+interface that can be used to wrap a command-line CPSA service with its
 parameters (CLI). This would reduce the time to implement a CSPA service
-considerably.  This also means that institutes can work together on implementing
-and perfecting this wrapper, creating a much more robust and tested interface
-and that institutes implementing a service do not need to have extensive
-knowledge on implementing REST interfaces. 
+considerably.  This also means that institutes can work together on
+implementing and perfecting this wrapper, creating a much more robust and
+tested interface and that institutes implementing a service do not need to have
+extensive knowledge on implementing REST interfaces. 
 
 RESTful applications use HTTP requests for CRUD (Create, Read, Update and
 Delete) operations and map these on the HTTP verbs POST, GET, PUT and DELETE.
