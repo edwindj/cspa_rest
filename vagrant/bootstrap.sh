@@ -17,6 +17,3 @@ git clone http://github.com/edwindj/cspa_rest
 cd cspa_rest
 npm install
 npm start
-
-
-
