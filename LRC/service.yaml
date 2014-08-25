@@ -16,7 +16,7 @@ input:
     name: metadata
     type: url
     description: |
-      url to ddi instance of structure of data
+      url to json table schema instance of structure of data
     required: no
   rules:
     name: rules
