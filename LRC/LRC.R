@@ -25,6 +25,8 @@ source_relative <- function(fname){
 }
 
 source_relative("../R/jts.R")
+source_relative("../R/save_data.R")
+
 
 #job <- fromJSON(file = args[1])
 main <- function( data_url
@@ -56,18 +58,16 @@ main <- function( data_url
   ve <- violatedEdits(E, dat)
   # convert to 0 and 1 (opposite of violated!) 
   checks <- data.frame(ifelse(ve, 0L, 1L))
-  cat("* Writing '", checks_file, "'\n", sep="")
   
-  write.csv( checks, 
-             file=checks_file,
-             row.names=FALSE,
-             na=""
-  )
-  if (is.null(checks_schema)){
-    checks_schema <- sub("(\\.csv)?$", "_schema.json", checks_file)
-  }
-  
-  write_jts(checks, path=checks_schema)
+  save_data_plus_schema(checks, checks_file, function(schema){
+    rules <- as.character(E)
+    schema$fields <- lapply(schema$fields, function(field){
+      field$title <- paste("Rule", field$name)
+      field$description <- unname(rules[field$name])
+      field
+    })
+    schema
+  })
 }
 
 main(opt$data, opt$data_schema, opt$rules, opt$checks, opt$checks_schema)

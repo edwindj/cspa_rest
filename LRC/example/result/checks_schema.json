@@ -1,1 +1,1 @@
-{"fields":[{"name":"num1","title":"num1","type":"integer"},{"name":"num2","title":"num2","type":"integer"}]}
+{"fields":[{"name":"num1","title":"Rule num1","type":"integer","description":"0 < x"},{"name":"num2","title":"Rule num2","type":"integer","description":"x + 1 < y"}]}
