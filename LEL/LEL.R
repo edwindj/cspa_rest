@@ -37,7 +37,7 @@ main <- function(data_url, data_schema_url, rules_url, weights_url, adapt_file, 
     schema <- get_jts(dat)
   } else {
     schema <- read_jts(data_schema_url)
-    check_jts(dat, schema)
+    dat <- check_jts(dat, schema)
   }
   
   if (is.null(weights_url)){

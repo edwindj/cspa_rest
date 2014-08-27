@@ -43,12 +43,9 @@ main <- function( data_url
     cat("* No json table schema supplied for ", data_url, ".\n", sep="")
     cat("* Skipping structure check\n\n")
   } else {
-    cat("* Checking schema for ", data_url)
+    cat("* Checking schema for ", data_url, "\n")
     schema <- read_jts(data_schema_url)
-    if (!check_jts(dat, schema)){
-      stop("* Invalid schema")
-      #TODO expand
-    }
+    dat <- check_jts(dat, schema)
   }
 
   # create an linear rule checking matrix
