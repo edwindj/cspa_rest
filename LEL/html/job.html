@@ -30,7 +30,7 @@
         <tr><th>Log:</th><td><a href="{job.log}">{job.log}</a></td>
         {/if}
         {if job.input.data}
-        <tr><th>Input/data:</th><td><a href="{job.input.data}">{job.input.data}</a></td>
+        <tr><th>Input/data:</th><td><a href="{job.input.data.data}">{job.input.data.data}</a></td>
         {/if}
         {if job.input.rules}
         <tr><th>Input/rules:</th><td><a href="{job.input.rules}">{job.input.rules}</a></td>
@@ -39,10 +39,12 @@
         <tr><th>Input/weights:</th><td><a href="{job.input.weights}">{job.input.weights}</a></td>
         {/if}
         {if job.result.adapt}
-        <tr><th>Result/adapt:</th><td><a href="{job.result.adapt}">{job.result.adapt}</a></td>
+        <tr><th>Result/adapt/data:</th><td><a href="{job.result.adapt.data}">{job.result.adapt.data}</a></td>
+        <tr><th>Result/adapt/schema:</th><td><a href="{job.result.adapt.schema}">{job.result.adapt.schema}</a></td>
         {/if}
         {if job.result.status}
-        <tr><th>Result/status:</th><td><a href="{job.result.status}">{job.result.status}</a></td>
+        <tr><th>Result/status/data:</th><td><a href="{job.result.status.data}">{job.result.status.data}</a></td>
+        <tr><th>Result/status/schema:</th><td><a href="{job.result.status.schema}">{job.result.status.schema}</a></td>
         {/if}
       </table>
 

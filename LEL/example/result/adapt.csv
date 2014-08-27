@@ -1,4 +1,4 @@
 "x","y"
-TRUE,TRUE
-FALSE,TRUE
-FALSE,FALSE
+1,1
+0,1
+0,0

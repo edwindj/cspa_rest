@@ -36,13 +36,14 @@ main <- function( data_url
 
   # read data into data.frame
   dat <- read.csv(data_url)
+  
   if (is.null(data_schema_url)){
     cat("* No json table schema supplied for ", data_url, ".\n", sep="")
     cat("* Skipping structure check\n\n")
   } else {
     cat("* Checking schema for ", data_url)
-    schema <- read_JTS(data_schema_url)
-    if (!check_JTS(dat, schema)){
+    schema <- read_jts(data_schema_url)
+    if (!check_jts(dat, schema)){
       stop("* Invalid schema")
       #TODO expand
     }
@@ -63,11 +64,10 @@ main <- function( data_url
              na=""
   )
   if (is.null(checks_schema)){
-    checks_schema <- sub("\\.csv$", "_schema.json", checks_file)
+    checks_schema <- sub("(\\.csv)?$", "_schema.json", checks_file)
   }
   
-  cat("* Writing '", checks_schema, "'\n", sep="")
-  write_JTS(checks, path=checks_schema)
+  write_jts(checks, path=checks_schema)
 }
 
 main(opt$data, opt$data_schema, opt$rules, opt$checks, opt$checks_schema)

@@ -1,7 +1,10 @@
 {
 	"name" :  "example",
-	"input":{
-                "data"  : "http://localhost:8080/LEL/example/input/data.csv",
-                "rules" : "http://localhost:8080/LEL/example/input/rules.txt"
+	"input":{ 
+		"data"  : {
+		   "data" : "http://localhost:8080/LEL/example/input/data.csv",
+		   "schema" : "http://localhost:8080/LEL/example/input/data_schema.json"
+		},
+		"rules" : "http://localhost:8080/LEL/example/input/rules.txt"
 	}
 }
