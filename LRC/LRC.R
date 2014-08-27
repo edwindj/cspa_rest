@@ -2,7 +2,7 @@
 # linear rule checking
 library(getopt)
 library(editrules)
-library(rjson)
+library(jsonlite)
 
 spec = matrix(c(
   'data'         , 'i', 1, "character",  

@@ -1,1 +1,20 @@
-{"fields":[{"name":"x","title":"x","type":"integer"},{"name":"y","title":"y","type":"integer"}]}
+{
+	"fields" : [
+		{
+			"name" : "turnover",
+			"title" : "turnover",
+			"type" : "integer"
+		},
+		{
+			"name" : "cost",
+			"title" : "cost",
+			"type" : "integer",
+			"description" : "cost of manufacturing"
+		},
+		{
+			"name" : "profit",
+			"title" : "profit",
+			"type" : "integer"
+		}
+	]
+}

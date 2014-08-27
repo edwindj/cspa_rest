@@ -2,7 +2,7 @@
 # linear error localization
 library(getopt)
 library(editrules)
-library(rjson)
+library(jsonlite)
 spec = matrix(c(
   'data'          , 'i', 1, "character",  
   'data_schema'   , 'j', 2, "character",
