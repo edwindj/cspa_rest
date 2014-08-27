@@ -33,7 +33,7 @@ result:
       title: checks
       type: "object"
       description: |
-        Contains data and meta data to the results of checking the record
+        Contains data and data structure to the results of checking the record
       properties: 
         data: 
           type: string
