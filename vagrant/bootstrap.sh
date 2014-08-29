@@ -9,7 +9,7 @@ apt-get update
 apt-get install -y r-base-dev r-base 
 apt-get install -y git nodejs npm nodejs-legacy vim
 
-R -e "install.packages(c('editrules','getopt', 'rspa', 'rjson'), repos='http://cran.rstudio.com/')"
+R -e "install.packages(c('editrules','getopt', 'rspa', 'jsonlite'), repos='http://cran.rstudio.com/')"
 
 # TODO clone git repository and start nodejs server
 git clone http://github.com/edwindj/cspa_rest
@@ -17,6 +17,3 @@ git clone http://github.com/edwindj/cspa_rest
 cd cspa_rest
 npm install
 npm start
-
-
-

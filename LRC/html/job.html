@@ -30,15 +30,15 @@
         <tr><th>Log:</th><td><a href="{job.log}">{job.log}</a></td>
         {/if}
         {if job.input.data}
-        <tr><th>Input/data:</th><td><a href="{job.input.data}">{job.input.data}</a></td>
+        <tr><th>Input/data/data:</th><td><a href="{job.input.data.data}">{job.input.data.data}</a></td>
+        <tr><th>Input/data/schema:</th><td><a href="{job.input.data.schema}">{job.input.data.schema}</a></td>
         {/if}
         {if job.input.rules}
         <tr><th>Input/rules:</th><td><a href="{job.input.rules}">{job.input.rules}</a></td>
         {/if}
         <tr><th>Result/checks/data:</th><td><a href="{job.result.checks.data}">{job.result.checks.data}</a></td>
-        <tr><th>Result/checks/meta:</th><td><a href="{job.result.checks.meta}">{job.result.checks.meta}</a></td>
+        <tr><th>Result/checks/meta:</th><td><a href="{job.result.checks.schema}">{job.result.checks.schema}</a></td>
       </table>
-
     </div>
   </body>
 </html>

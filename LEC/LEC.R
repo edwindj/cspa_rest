@@ -12,7 +12,6 @@ spec = matrix(c(
 
 opt <- getopt(spec)
 
-
 # Define the Driver
 main <- function(data_url, localization_url, rules_url, adjusted_file){
 ############################################################

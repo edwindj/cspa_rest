@@ -14,7 +14,7 @@ This will install nodejs dependencies for cspa_rest. (The dependencies are given
 
 Install **R** and run
 ```S
-R -e "install.packages('getopt','editrules','whisker')"
+R -e "install.packages('getopt','editrules', 'jsonlite','rspa')"
 ```
 This will install R packages on which the services depend.
 
@@ -37,10 +37,8 @@ Directory [LEL](LEL)  and [LRC](LRC) contain services for Error Localization and
 - Start service
 - Goto [LRC/example](LRC/example) (or [LEL/example](LEL/example), or [LEC/example](LEL/example))
 - execute `post.sh`, this will `POST`  the `job.json` file and create a job (`id = 0`) in the service
-- http://localhost:8080/LRC/job/0 will show the job information
-- http://localhost:8080/LRC/job/0/result/checks will return the output data.
-- http://localhost:8080/LRC/job/0/log will return the logging information
-
+- http://localhost:8080/LRC/job will show a list of current jobs
+- http://localhost:8080/LRC/job/{id} will show job information
 
 ## Vagrant
 Alternatively you can install a VM image that contains all the software and a running CSPA service that can be tested on `localhost:8080`. 
