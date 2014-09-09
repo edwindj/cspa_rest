@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Install R
-echo "deb http://cran.rstudio.com/bin/linux/ubuntu saucy/" > /etc/apt/sources.list.d/r.list
+echo "deb http://cran.rstudio.com/bin/linux/ubuntu trusty/" > /etc/apt/sources.list.d/r.list
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
 
 apt-get update
