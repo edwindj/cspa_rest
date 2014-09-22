@@ -55,7 +55,7 @@ result:
           value: "json"
 command: >
   Rscript {service.servicedir}/LRC.R
-  --data {job.input.data.data}
-  --data_schema {job.input.data.schema}
-  --rules {job.input.rules}
-  --checks checks.csv
+  {job.input.data.data}
+  {job.input.rules}
+  {job.input.data.schema}
+  --output checks.csv
