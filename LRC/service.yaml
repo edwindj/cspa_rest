@@ -57,5 +57,5 @@ command: >
   Rscript {service.servicedir}/LRC.R
   {job.input.data.data}
   {job.input.rules}
-  {job.input.data.schema}
+  {if job.input.data.schema}{job.input.data.schema}{/if}
   --output checks.csv

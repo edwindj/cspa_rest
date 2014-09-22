@@ -1,6 +1,6 @@
 # utility functions for JSON table schema
 
-library(rjson) # replace with jsonlite?
+library(jsonlite) # replace with jsonlite?
 
 #' Read JSON table schema from file
 read_JTS <- function(file, ...){

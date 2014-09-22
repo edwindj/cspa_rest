@@ -1,8 +1,8 @@
 #! Rscript
-"Usage: LRC.R <data> <rules> [<data_schema>] --output=checks.csv
+"Usage: LRC.R <data> <rules> [<data_schema>] --output=<file>
 
 Options:
-  -o --output output path where LRC should write the results in CSV format.
+  -o <file>, --output <file> output path where LRC should write the results in CSV format.
 
 Arguments:
   <data>  path/url to csv file with data in csv format to be checked.
@@ -12,8 +12,8 @@ Arguments:
 
 library(docopt, quietly = TRUE)
 opt <- docopt(doc)
+
 library(editrules)
-library(jsonlite)
 
 # use this function to make sourcing work for both from command line as well as
 # from server.js
@@ -28,7 +28,6 @@ source_relative <- function(fname){
 
 source_relative("../R/jts.R")
 source_relative("../R/save_data.R")
-
 
 #job <- fromJSON(file = args[1])
 main <- function( data_url
