@@ -74,9 +74,10 @@ result:
           value: "{job.url}/result/status/schema"
 command: >
   Rscript {service.servicedir}/LEL.R
-  --data {job.input.data.data}
-  {if job.input.data.schema} --data_schema {job.input.data.schema} {/if}
-  --rules {job.input.rules}
-  {if job.input.weights}--weights {job.input.weights}{/if}
-  --adapt adapt.csv
-  --status status.csv
+  --adapt=adapt.csv
+  --status=status.csv
+  {job.input.data.data}
+  {job.input.rules}
+  {if job.input.data.schema}{job.input.data.schema}{/if}
+  {if job.input.weights}{job.input.weights}{/if}
+  
