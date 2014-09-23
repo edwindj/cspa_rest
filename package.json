@@ -18,5 +18,8 @@
     "whiskers": "^0.3.3",
     "yamljs": "^0.1.5",
     "rimraf": "^2.2.8"
+  },
+  "devDependencies": {
+    "apidoc": "^0.7.2"
   }
 }
