@@ -1,5 +1,9 @@
 #! Rscript
-"Usage: LRC.R <data> <rules> [<data_schema>] --output=<file>
+"Linear Rule Checking
+
+Check if data complies to linear rules (e.g. x+y == z, 2*x > 3*z, etc.)
+
+Usage: LRC.R <data> <rules> [<data_schema>] --output=<file>
 
 Options:
   -o <file>, --output <file> output path where LRC should write the results in CSV format.
