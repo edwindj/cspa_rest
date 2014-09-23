@@ -36,7 +36,7 @@ main <- function( data_url
                 , checks_file
                 , checks_schema = NULL){  
   # TODO add checks for existence of parameters
-
+  cat("\n****************************\n")
   # read data into data.frame
   dat <- read.csv(data_url)
   
@@ -44,9 +44,10 @@ main <- function( data_url
     cat("* No json table schema supplied for ", data_url, ".\n", sep="")
     cat("* Skipping structure check\n\n")
   } else {
-    cat("* Checking schema for ", data_url, "\n")
+    cat("* Checking schema for ", data_url, ":")
     schema <- read_jts(data_schema_url)
-    dat <- check_jts(dat, schema)
+    dat <- check_schema(dat, schema)
+    cat(" ok.\n")
   }
 
   # create an linear rule checking matrix
@@ -59,11 +60,8 @@ main <- function( data_url
   
   save_data_plus_schema(checks, checks_file, function(schema){
     rules <- as.character(E)
-    schema$fields <- lapply(schema$fields, function(field){
-      field$title <- paste("Rule", field$name)
-      field$description <- unname(rules[field$name])
-      field
-    })
+    schema$fields$title <- paste("Rule", schema$fields$name)
+    schema$fields$description <- unname(rules[schema$fields$name])
     schema
   })
 }
@@ -71,6 +69,7 @@ main <- function( data_url
 main(opt$data, opt$data_schema, opt$rules, opt$output)
 
 # data_url <- "file://example/input/data.csv"
+# data_schema_url <- "file://example/input/data_schema.json"
 # rules_url <- "file://example/input/rules.txt"
 # checks_file <-"example/result/checks.csv"
-# main(data_url, rules_url, checks_file)
+# main(data_url, data_schema_url, rules_url, checks_file)

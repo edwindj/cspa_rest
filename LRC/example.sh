@@ -1,4 +1,4 @@
-Rscript LRC.R --data file://example/input/data.csv \
-              --data_schema file://example/input/data_schema.json \
-              --rules file://example/input/rules.txt \
-              --checks example/result/checks.csv
+Rscript LRC.R file://example/input/data.csv \
+              file://example/input/rules.txt \
+              file://example/input/data_schema.json \
+              --output example/result/checks.csv

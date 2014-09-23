@@ -1,14 +1,14 @@
 # utility functions for JSON table schema
 
-library(jsonlite) # replace with jsonlite?
+library(jsonlite)
 
 #' Read JSON table schema from file
-read_JTS <- function(file, ...){
-  schema <- fromJSON(file=file)
+read_jts <- function(file, ...){
+  schema <- fromJSON(readLines(file))
   structure(schema, class="jts")
 }
 
-write_JTS <- function(schema, path, ...){
+write_jts <- function(schema, path, ...){
   writeLines(toJSON(schema), con = path)
 }
 
@@ -18,34 +18,38 @@ write_JTS <- function(schema, path, ...){
 check_schema <- function(x, schema, ...){
   jts <- derive_schema(x)
   stopifnot(inherits(schema, "jts"))
-  stopifnot(length(jts$fields) == length(schema$fields))
-  for (i in seq_along(jts$fields)){
-    f1 <- jts$fields[[i]]
-    f2 <- schema$fields[[i]]
-    if (f1$name != f2$name || f1$type != f2$type){
-      stop("Field ", i, " does not conform.\n", f1,"\nvs\n", f2)
-    }
+  
+  idx <- match(schema$fields$name, jts$fields$name)
+  if (any(is.na(idx))){
+    stop("Missing fields: ", schema$fields$name[is.na(idx)])
   }
-  invisible(TRUE)
+  
+  # set fields in same order and size as schema$fields
+  fields <- jts$fields[idx,,drop=FALSE]
+  check_type <- fields$type != schema$fields$type
+  contain_type <- fields$type == "integer" & schema$fields$type == "number"
+  check_type <- check_type 
+  if (any(check_type)){
+    warning("Types do not match: ", paste(fields$name[check_type], collapse = ", "))
+  }
+  invisible(x[idx,,drop=FALSE])
 }
 
 #' 
 derive_schema <- function(x, ...){
   stopifnot(inherits(x, "data.frame"))
-  fields <- lapply(names(x), function(name){
-    v <- x[[name]]
-    l <- list(name=name, title=name)
-    type = class(v)
-    l$type = switch( type,
-                     numeric    = "number",
-                     integer   = "integer",
-                     character = "string",
-                     factor    = "string",
-                     Date      = "datetime",
-                     "Any"
+  name <- names(x)
+  type <- sapply(x, function(v){
+    switch(class(v),
+           numeric    = "number",
+           integer   = "integer",
+           character = "string",
+           factor    = "string",
+           Date      = "datetime",
+           "Any"
     )
-    l
   })
+  fields <- data.frame(name=name, title=name, type=type)
   structure(list(fields = fields), class="jts")
 }
 
