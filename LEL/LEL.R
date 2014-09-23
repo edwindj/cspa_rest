@@ -1,17 +1,22 @@
 #! Rscript
-# linear error localization
-library(getopt)
-library(editrules)
-library(jsonlite)
-spec = matrix(c(
-  'data'          , 'i', 1, "character",  
-  'data_schema'   , 'j', 2, "character",
-  'rules'         , 'r', 1, "character",
-  'weights'       , 'w', 2, "character",
-  'adapt'         , 'a', 1, "character",
-  'status'        , 's', 1, "character"
-), byrow=TRUE, ncol=4)
-opt <- getopt(spec)
+"Linear Edit Localization
+
+Usage: LEL.R --adapt=<file> --status=<file> <data> <rules> [<data_schema> <weights>]
+
+Options:
+  --adapt=<file>   csv file in which the error for each record of 'data' will be written.
+  --status=<file>  csv file in which the status for each record of 'data' will be written.
+
+Arguments:
+  <data>        path/url to csv file with data to be checked.
+  <rules>       path/url to text file with linear edit rules to be used.
+  <data_schema> path url to json table schema file describing the structure
+  <weights>     path url to csv file with weights per record/per column. 
+                If the csv file contains one row, all records will have the
+                same weights.
+" -> doc
+library(docopt, quietly=T)
+opt <- docopt(doc)
 
 # use this function to make sourcing work for both from command line as well as
 # from server.js
@@ -54,8 +59,6 @@ main <- function(data_url, data_schema_url, rules_url, weights_url, adapt_file, 
   # create an linear rule checking matrix
   E <- editmatrix(readLines(rules_url))
   
-  #TODO add weights!
-
   # check for violatedEdits
   le <- localizeErrors(E, dat, weight=weight, verbose = T, method="mip")
   
