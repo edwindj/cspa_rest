@@ -1,6 +1,6 @@
 # Linear Rule Checking service
 
-## Command line interface
+## Command-line interface
 This directory contains the R script `LRC.R' that can be executed from the command line.
 
 ```
