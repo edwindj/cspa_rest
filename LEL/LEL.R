@@ -1,5 +1,8 @@
 #! Rscript
-"Linear Edit Localization
+"Linear Error Localization
+
+With a set of rules that the data must obey, find the fields within records, that
+are likely to be errors.
 
 Usage: LEL.R --adapt=<file> --status=<file> <data> <rules> [<data_schema> <weights>]
 
@@ -17,6 +20,7 @@ Arguments:
 " -> doc
 library(docopt, quietly=T)
 opt <- docopt(doc)
+library(editrules)
 
 # use this function to make sourcing work for both from command line as well as
 # from server.js
@@ -34,23 +38,26 @@ source_relative("../R/save_data.R")
 
 main <- function(data_url, data_schema_url, rules_url, weights_url, adapt_file, status_file){
   # read data into data.frame
+  cat("\n***************************************\n")
   dat <- read.csv(data_url)
   
   if (is.null(data_schema_url)){
     cat("* No json table schema supplied for ", data_url, ".\n", sep="")
     cat("* Skipping structure check\n\n")
-    schema <- get_jts(dat)
+    schema <- derive_schema(dat)
   } else {
+    cat("* Checking file structure: ")
     schema <- read_jts(data_schema_url)
-    dat <- check_jts(dat, schema)
+    dat <- check_schema(dat, schema)
+    cat("ok.\n")
   }
   
   if (is.null(weights_url)){
     weight <- sapply(names(dat), function(x) 1)
-    cat("No weight supplied, assuming weight=1\n")
+    cat("* No weight supplied, assuming weight=1\n")
   } else {
     weight <- read.csv(weights_url)
-    check_jts(weight, schema)
+    weight <- check_schema(weight, schema)
     if (nrow(weights) != 1 && nrow(weights) != nrow(dat)){
       stop("Number of rows of weight is not equal to 1 or ", nrow(dat))
     }
@@ -68,11 +75,8 @@ main <- function(data_url, data_schema_url, rules_url, weights_url, adapt_file, 
   
   status <- le$status[c("weight", "elapsed")]
   save_data_plus_schema(status, status_file, function(schema){
-    
-    schema$fields[[1]]$description <- "Weight of the solution found: sum of the weights
-    of the fields that are considered erroneous"
-    
-    schema$fields[[2]]$description <- "Time in seconds for finding solution"
+    schema$fields$description <- c( "Weight of the solution found: sum of the weights of the fields that are considered erroneous",
+                                    "Time in seconds for finding solution")
     schema
   })
 }
