@@ -21,7 +21,7 @@ Arguments:
 
 ## REST interface
 
-See [swagger.yaml](swagger.yaml)
+See [Swagger definition file](./swagger.yaml)
 
 ## Example
 
