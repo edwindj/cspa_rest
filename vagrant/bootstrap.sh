@@ -9,7 +9,7 @@ apt-get update
 apt-get install -y r-base-dev r-base 
 apt-get install -y git nodejs npm vim
 
-R -e "install.packages(c('editrules','getopt', 'rspa', 'jsonlite', 'Rcpp', 'BH', 'assertthat'), repos='http://cran.rstudio.com/')"
+R -e "install.packages(c('editrules','docopt', 'rspa', 'jsonlite', 'Rcpp', 'BH', 'assertthat'), repos='http://cran.rstudio.com/')"
 
 # TODO clone git repository and start nodejs server
 git clone http://github.com/edwindj/cspa_rest
