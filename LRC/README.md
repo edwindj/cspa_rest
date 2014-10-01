@@ -17,6 +17,8 @@ Arguments:
 
 ## REST interface
 
+see [swagger definition file](./swagger.yaml)
+
 ## Example
 
 The directory `example` contains
