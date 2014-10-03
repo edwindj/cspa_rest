@@ -2,7 +2,7 @@
 This repo contains two services for the common statistical processing architecture.
 
 - Linear Rule Checking (LRC), for checking records for validity
-- Linear Error Localization, for finding erronuous values in records, given a set of restrictions.
+- Linear Error Localization (LEL), for finding erronuous values in records, given a set of restrictions.
 
 Both services can be run as command-line tools (CLI) or via a Web API- REST interface.
 
