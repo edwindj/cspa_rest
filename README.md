@@ -14,7 +14,7 @@ This will install nodejs dependencies for cspa_rest. (The dependencies are given
 
 Install **R** and run
 ```S
-R -e "install.packages('getopt','editrules', 'jsonlite','rspa')"
+R -e "install.packages('docopt','editrules', 'jsonlite','rspa')"
 ```
 This will install R packages on which the services depend.
 

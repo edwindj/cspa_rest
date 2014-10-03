@@ -1,0 +1,22 @@
+{
+	"fields" : [
+		{
+			"$row" : "turnover",
+			"name" : "turnover",
+			"title" : "turnover",
+			"type" : "integer"
+		},
+		{
+			"$row" : "cost",
+			"name" : "cost",
+			"title" : "cost",
+			"type" : "integer"
+		},
+		{
+			"$row" : "profit",
+			"name" : "profit",
+			"title" : "profit",
+			"type" : "integer"
+		}
+	]
+}
