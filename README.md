@@ -19,7 +19,7 @@ There are (at least) three options for installing the services:
 - install [docker](docker.io)
 - Run
 ```
-sudo docker run -d -p8080:8080 edwindj/cspa-rest
+$ sudo docker run -d -p8080:8080 edwindj/cspa-rest
 ```
 This will start a docker container that exposes port 8080 to the OS.
 The docker image is automatically build from the `vagrant/Dockerfile`.
