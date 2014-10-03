@@ -7,13 +7,17 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
 apt-get update
 
 apt-get install -y r-base-dev r-base 
-apt-get install -y git nodejs npm vim
+apt-get install -y nodejs npm vim
 
-R -e "install.packages(c('editrules','docopt', 'rspa', 'jsonlite', 'Rcpp', 'BH', 'assertthat'), repos='http://cran.rstudio.com/')"
+R -e "install.packages(c('editrules','docopt', 'rspa', 'jsonlite'), repos='http://cran.rstudio.com/')"
 
-# TODO clone git repository and start nodejs server
-git clone http://github.com/edwindj/cspa_rest
+# get latest cspa_rest version
+wget http://github.com/edwindj/cspa_rest/archive/master.zip
+unzip master.zip
+# rename it to cspa_rest
+mv cspa_rest-master cspa_rest
+rm master.zip
 
 cd cspa_rest
 npm install
-npm start
+nodejs server.js&
