@@ -10,7 +10,7 @@ Both services can be run as command-line tools (CLI) or via a Web API- REST inte
 
 There are (at least) three options for installing the services:
 
-- By running a prebuild [docker](docker.io)  [](image)
+- By running a prebuild [docker](docker.io)  image.
 - By downloading the repo and installing software on Windows or Linux
 - By using [Vagrant](https://www.vagrantup.com/), which will create an Ubuntu virtualbox VM. 
 
@@ -21,7 +21,8 @@ There are (at least) three options for installing the services:
 ```
 sudo docker run -d -p8080:8080 edwindj/cspa-rest
 ```
-This will start a docker container that exposes port 8080 to the OS. 
+This will start a docker container that exposes port 8080 to the OS.
+The docker image is automatically build from the `vagrant/Dockerfile`.
 
 ### Complete install
 
