@@ -6,8 +6,8 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
 
 apt-get update
 
-apt-get install -y r-base-dev r-base 
-apt-get install -y nodejs npm vim
+apt-get install -y r-base 
+apt-get install -y nodejs npm vim wget
 
 R -e "install.packages(c('editrules','docopt', 'rspa', 'jsonlite'), repos='http://cran.rstudio.com/')"
 
@@ -20,4 +20,4 @@ rm master.zip
 
 cd cspa_rest
 npm install
-nodejs server.js&
+#nodejs server.js&
