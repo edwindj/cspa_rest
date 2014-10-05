@@ -16,7 +16,7 @@ There are (at least) three options for installing the services:
 
 
 ### Docker
-- install [docker](docker.io)
+- install [docker](http://docker.io)
 - Run
 ```
 $ sudo docker run -d -p8080:8080 edwindj/cspa-rest
