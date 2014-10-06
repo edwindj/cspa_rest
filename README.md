@@ -10,7 +10,7 @@ Both services can be run as command-line tools (CLI) or via a Web API- REST inte
 
 There are (at least) three options for installing the services:
 
-- By running a prebuild [docker](docker.io)  image.
+- By running a prebuild [docker](http://docker.io)  image (edwindj/cspa-rest).
 - By downloading the repo and installing software on Windows or Linux
 - By using [Vagrant](https://www.vagrantup.com/), which will create an Ubuntu virtualbox VM. 
 
@@ -21,11 +21,19 @@ There are (at least) three options for installing the services:
 ```
 $ sudo docker run -d -p8080:8080 edwindj/cspa-rest
 ```
-This will start a docker container that exposes port 8080 to the OS.
+This will start a docker container with both services running that exposes port 8080 to the OS.
 The docker image is automatically build from the `vagrant/Dockerfile`.
 
 ### Complete install
 
+- Install **R** and run
+```S
+R -e "install.packages('docopt','editrules', 'jsonlite','rspa')"
+```
+This will install R packages on which the services depend.
+The command-line interface should work after this installation.
+
+For the REST interface:
 - install **[node.js](http://nodejs.org)** and **npm**, see (http://nodejs.org)
 - download this [repo](http://github.com/edwindj/cspa_rest/archive/master.zip)
 - Then goto the "cspa_rest/" directory and run
@@ -36,12 +44,6 @@ $ npm install
 
 This will install nodejs dependencies for cspa_rest. (The dependencies are given in file "./packages.json")
 
-
-- Install **R** and run
-```S
-R -e "install.packages('docopt','editrules', 'jsonlite','rspa')"
-```
-This will install R packages on which the services depend.
 
 - Run the server:
 
