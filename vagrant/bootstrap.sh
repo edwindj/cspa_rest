@@ -15,6 +15,7 @@ R -e "install.packages(c('editrules','docopt', 'rspa', 'jsonlite'), repos='http:
 wget http://github.com/edwindj/cspa_rest/archive/master.zip
 unzip master.zip
 # rename it to cspa_rest
+rm -rf cspa_rest
 mv cspa_rest-master cspa_rest
 rm master.zip
 
