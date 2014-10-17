@@ -32,7 +32,7 @@ check_schema <- function(x, schema, ...){
   if (any(check_type)){
     warning("Types do not match: ", paste(fields$name[check_type], collapse = ", "))
   }
-  invisible(x[idx,,drop=FALSE])
+  invisible(x[,idx,drop=FALSE])
 }
 
 #' 

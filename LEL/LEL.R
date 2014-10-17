@@ -20,6 +20,8 @@ Arguments:
 " -> doc
 library(docopt, quietly=T)
 opt <- docopt(doc)
+#print(opt)
+
 library(editrules)
 
 # use this function to make sourcing work for both from command line as well as
@@ -40,6 +42,7 @@ main <- function(data_url, data_schema_url, rules_url, weights_url, adapt_file, 
   # read data into data.frame
   cat("\n***************************************\n")
   dat <- read.csv(data_url)
+  #print(dat)
   
   if (is.null(data_schema_url)){
     cat("* No json table schema supplied for ", data_url, ".\n", sep="")
@@ -87,4 +90,4 @@ main(opt$data, opt$data_schema, opt$rules, opt$weights, opt$adapt, opt$status)
 # rules_url <- "file://example/input/rules.txt"
 # adapt_file <-"example/result/adapt.csv"
 # status_file <-"example/result/status.csv"
-# main(data_url, rules_url, NULL, adapt_file, status_file)
+# main(data_url, NULL ,rules_url, NULL, adapt_file, status_file)

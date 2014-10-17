@@ -1,11 +1,12 @@
 # needs jts functions!
 save_data_plus_schema <- function(x, path, improve_schema=function(s) s){
-  
+  row.names(x) <- NULL
   cat("* Writing csv '", path, "'\n", sep="")
   write.csv( x,
              file=path,
              row.names=FALSE,
-             na=""
+             na="",
+             fileEncoding="UTF-8"
   )
   
   path_schema <- sub("(\\.csv)$", "_schema.json", path)

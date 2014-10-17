@@ -1,22 +1,23 @@
 {
-	"fields" : [
-		{
-			"$row" : "turnover",
-			"name" : "turnover",
-			"title" : "turnover",
-			"type" : "integer"
-		},
-		{
-			"$row" : "cost",
-			"name" : "cost",
-			"title" : "cost",
-			"type" : "integer"
-		},
-		{
-			"$row" : "profit",
-			"name" : "profit",
-			"title" : "profit",
-			"type" : "integer"
-		}
-	]
+    "fields": [
+        {
+            "name": "turnover",
+            "title": "turnover",
+            "type": "integer",
+            "_row": "turnover"
+        },
+        {
+            "name": "cost",
+            "title": "cost",
+            "type": "integer",
+            "_row": "cost"
+        },
+        {
+            "name": "profit",
+            "title": "profit",
+            "type": "integer",
+            "_row": "profit"
+        }
+    ]
 }
+
