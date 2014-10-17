@@ -42,7 +42,7 @@ main <- function( data_url
   # TODO add checks for existence of parameters
   cat("\n****************************\n")
   # read data into data.frame
-  dat <- read.csv(data_url)
+  dat <- read_data(data_url)
   
   if (is.null(data_schema_url)){
     cat("* No json table schema supplied for ", data_url, ".\n", sep="")

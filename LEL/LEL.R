@@ -41,7 +41,7 @@ source_relative("../R/save_data.R")
 main <- function(data_url, data_schema_url, rules_url, weights_url, adapt_file, status_file){
   # read data into data.frame
   cat("\n***************************************\n")
-  dat <- read.csv(data_url)
+  dat <- read_data(data_url)
   #print(dat)
   
   if (is.null(data_schema_url)){
