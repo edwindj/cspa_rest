@@ -10,6 +10,11 @@ server.use(restify.bodyParser());
 
 var cspa = require("./libs/service.js");
 
+// serve bootstrap and jQuery
+server.get(/^\/external.*/, restify.serveStatic({
+    directory: __dirname
+}));	
+
 server.listen(PORT, "127.0.0.1", function() {
   console.log("Service started.");
   // create service
