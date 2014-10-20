@@ -1,0 +1,265 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "SS API",
+        "description": "Sample Selection",
+        "version": "0.1.0"
+    },
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "basePath": "/v1",
+    "produces": [
+        "application/json",
+        "text/csv"
+    ],
+    "consumes": [
+        "application/json",
+        "application/xml",
+        "text/csv"
+    ],
+    "paths": {
+        "/SS/job": {
+            "post": {
+                "summary": "Create a SS request",
+                "description": "Create a SS request",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Create a SS job supplying the input \nparameters\n",
+                        "schema": {
+                            "name": {
+                                "type": "string"
+                            },
+                            "input": {
+                                "$ref": "Input"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Newly created job",
+                        "schema": {
+                            "$ref": "Job"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "summary": "SS jobs",
+                "description": "The Jobs endpoint returns information about all jobs that have been submitted.",
+                "responses": {
+                    "200": {
+                        "description": "List of jobs",
+                        "schema": {
+                            "type": "array",
+                            "$items": "Job"
+                        }
+                    }
+                }
+            }
+        },
+        "/SS/job/{id}": {
+            "get": {
+                "summary": "Get SS Job info",
+                "description": "Return the status and information on a SS job.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of job",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "SS"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Job description",
+                        "schema": {
+                            "$ref": "Job"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/SS/job/{id}/result/sample/data": {
+            "get": {
+                "summary": "get sample data result.",
+                "description": "get sample data result.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of job",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "csv data",
+                        "schema": {
+                            "type": "file"
+                        }
+                    }
+                }
+            }
+        },
+        "/SS/job/{id}/result/sample/schema": {
+            "get": {
+                "summary": "get data result structure.",
+                "description": "get data result structure.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of job",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "json table schema",
+                        "schema": {
+                            "type": "file"
+                        }
+                    }
+                }
+            }
+        },
+        "/SS/job/{id}/result/log": {
+            "get": {
+                "summary": "get logging information of job.",
+                "description": "get logging information of job.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of job",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "text file with logging information.",
+                        "schema": {
+                            "type": "file"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Job": {
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "required": "yes"
+                },
+                "name": {
+                    "type": "string",
+                    "required": "yes"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "created": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "url": {
+                    "type": "string",
+                    "format": "url"
+                },
+                "input": {
+                    "type": "Input",
+                    "description": "input parameters",
+                    "$ref": "Input"
+                },
+                "result": {
+                    "type": "Result",
+                    "$ref": "Result"
+                },
+                "started": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "ended": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "DataSet": {
+            "properties": {
+                "data": {
+                    "type": "file",
+                    "description": "csv data file"
+                },
+                "schema": {
+                    "type": "file",
+                    "description": "*json table schema* describing the data structure of the *csv* data.\n"
+                }
+            }
+        },
+        "Error": {
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "fields": {
+                    "type": "string"
+                }
+            }
+        },
+        "Input": {
+            "properties": {
+                "populationdata": {
+                    "type": "DataSet",
+                    "description": "Population data",
+                    "required": "yes",
+                    "$ref": "DataSet"
+                },
+                "surveygroup": {
+                    "type": "string",
+                    "format": "url",
+                    "description": "file with SurveyGroup parameters (XML)",
+                    "required": "yes"
+                },
+                "survey": {
+                    "type": "string",
+                    "format": "url",
+                    "description": "file with Survey parameters (XML)",
+                    "required": "yes"
+                }
+            }
+        },
+        "Result": {
+            "properties": {
+                "sample": {
+                    "type": "DataSet",
+                    "$ref": "DataSet"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Job</title>
+
+	<script src="/external/jquery/jquery-1.11.0.min.js"></script>
+    <link rel="stylesheet" href="/external/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/external/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <script src="/external/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<!--
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+-->
+  </head>
+  <body>
+    <div class="container">
+      <h1>{job.name}</h1>
+
+      <table class="table">
+        <tr><th>Service:</th><td>{service.definition.title}</a></td>
+        <tr><th>ID:</th><td><a href="{job.url}">{job.id}</a></td>
+        <tr><th>Status:</th><td>{job.status}</td>
+        <tr><th>Created:</th><td>{job.created}</td>
+        {if job.started}
+        <tr><th>Started:</th><td>{job.started}</td>
+        {/if}
+        {if job.ended}
+        <tr><th>Ended:</th><td>{job.ended}</td>
+        {/if}
+        {if job.log}
+        <tr><th>Log:</th><td><a href="{job.log}">{job.log}</a></td>
+        {/if}
+        {if job.input.populationdata.data}
+        <tr><th>Input/populationdata/data:</th><td><a href="{job.input.populationdata.data}">{job.input.populationdata.data}</a></td>
+		{/if}
+		{if job.input.populationdata.schema}
+        <tr><th>Input/populationdata/schema:</th><td><a href="{job.input.populationdata.schema}">{job.input.populationdata.schema}</a></td>
+        {/if}
+        {if job.input.surveygroup}
+        <tr><th>Input/surveygroup:</th><td><a href="{job.input.surveygroup}">{job.input.surveygroup}</a></td>
+        {/if}
+		{if job.input.survey}
+        <tr><th>Input/survey:</th><td><a href="{job.input.survey}">{job.input.survey}</a></td>
+        {/if}
+        <tr><th>Result/sample/data:</th><td><a href="{job.result.sample.data}">{job.result.sample.data}</a></td>
+        <tr><th>Result/sample/meta:</th><td><a href="{job.result.sample.schema}">{job.result.sample.schema}</a></td>
+      </table>
+    </div>
+  </body>
+</html>
+

@@ -1,0 +1,65 @@
+name: SS
+title: Sample Selection
+description: |
+  Sample Selection
+version: 0.1.0
+wd: .
+input:
+  populationdata:
+    data:
+      name: data
+      type: url
+      description: |
+        path/url to csv file with the populationdata in csv
+      required: yes
+    schema:
+      name: schema
+      type: url
+      description: |
+        path/url to json table schema file describing populationdata
+      required: yes
+  surveygroup:
+    name: surveygroup
+    type: url
+    description: |
+      path/url to XML file with surveygroup parameters
+    required: yes
+  survey:
+    name: survey
+    type: url
+    description: |
+      path/url to XML file with survey parameters
+    required: yes
+result:
+  title: Results of this service
+  type: object
+  properties:
+    sample:
+      title: sample
+      type: "object"
+      description: |
+        Contains data and data structure of the selected sample
+      properties: 
+        data: 
+          type: string
+          description: |
+            path/url to csv file with the selected sample
+          mimetype: "text/csv"
+          filename: sample.csv
+          value: "{job.url}/result/sample/data"
+        schema: 
+          type: string
+          description: |
+            path/url to json table schema file describing the selected sample
+          mimetype: "application/json"
+          filename: sample_schema.json
+          value: "{job.url}/result/sample/schema"
+        type:
+          type: string
+          value: "json"
+command: >
+  {service.servicedir}/CSPA.SampleSelectionWrapper.exe
+  --populationdata {job.input.populationdata.data}
+  --populationdata_schema {job.input.populationdata.schema}
+  --surveygroup {job.input.surveygroup}
+  --survey {job.input.survey}

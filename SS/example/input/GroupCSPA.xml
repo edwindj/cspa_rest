@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg:SurveyGroup xsi:schemaLocation="http://nl.cbs.SamplingService.SurveyGroup/v1.0 ../SurveyGroup.xsd" xmlns:var="http://nl.cbs.SamplingService.Variables/v1.0" Code="GroupCSPA" InitializationModule="SBS@initialize_births_movers_SBS" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:svg="http://nl.cbs.SamplingService.SurveyGroup/v1.0">
+  <BaseStratificationVariables>
+    <Variable Code="GK" DataType="Integer">
+      <RangeGroups>
+        <RangeGroup Code="GK4">
+          <VariableRange From="4" To="4" />
+        </RangeGroup>
+        <RangeGroup Code="GK5">
+          <VariableRange From="5" To="5" />
+        </RangeGroup>
+        <RangeGroup Code="GK6">
+          <VariableRange From="6" To="6" />
+        </RangeGroup>
+        <RangeGroup Code="GK7">
+          <VariableRange From="7" To="7" />
+        </RangeGroup>
+        <RangeGroup Code="GK8">
+          <VariableRange From="8" To="8" />
+        </RangeGroup>
+        <RangeGroup Code="GK9">
+          <VariableRange From="9" To="9" />
+        </RangeGroup>
+      </RangeGroups>
+    </Variable>
+    <Variable Code="SBI" DataType="String">
+      <RangeGroups>
+        <RangeGroup Code="SBI1">
+          <VariableRange From="0812" To="0899" />
+        </RangeGroup>
+        <RangeGroup Code="SBI2">
+          <VariableRange From="0990" To="1392" />
+        </RangeGroup>
+        <RangeGroup Code="SBI3">
+          <VariableRange From="1393" To="1393" />
+        </RangeGroup>
+        <RangeGroup Code="SBI4">
+          <VariableRange From="1394" To="1820" />
+        </RangeGroup>
+        <RangeGroup Code="SBI5">
+          <VariableRange From="2011" To="3291" />
+        </RangeGroup>
+        <RangeGroup Code="SBI6">
+          <VariableRange From="32999" To="3329" />
+        </RangeGroup>
+      </RangeGroups>
+    </Variable>
+  </BaseStratificationVariables>
+</svg:SurveyGroup>

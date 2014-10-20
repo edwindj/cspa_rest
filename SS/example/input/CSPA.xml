@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<n:Survey xmlns:n="http://nl.cbs.SamplingService.SurveyGroup/v1.0" xmlns:var="http://nl.cbs.SamplingService.Variables/v1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nl.cbs.SamplingService.SurveyGroup/v1.0
+../Survey.xsd" Code="CSPA">
+	<TestRun>1</TestRun>
+	<SurveyGroupCode>GroupCSPA</SurveyGroupCode>
+	<IsPanel>0</IsPanel>
+	<RotatePanel>0</RotatePanel>
+	<SurveyBurden>1.0</SurveyBurden>
+	<SamplingModule>SBS@apply_SBS</SamplingModule>
+	<UnitIdMappingName>BeIdentificatie</UnitIdMappingName>
+	<PopulationData>
+		<SQL>
+		  <ConnectionString>Provider=Microsoft.Jet.OLEDB.4.0;Data Source=\\S0AAPP0107O.cbsp.nl\GeneriekeSteekproefModuleData\Input\Survey;Extended Properties="text;HDR=Yes;FMT=Delimited";Persist Security Info=False</ConnectionString>
+		  <Query>select * from [populationdata.csv]</Query>
+		</SQL>
+	</PopulationData>
+	<BaseStratificationVariables>
+		<BaseStratificationVariable RefCode="GK">
+			<MappingName>GkSbsGecoordineerd</MappingName>
+		</BaseStratificationVariable>
+		<BaseStratificationVariable RefCode="SBI">
+			<MappingName>Sbi2008ActueelGecoordineerd</MappingName>
+		</BaseStratificationVariable>
+	</BaseStratificationVariables>
+	<SubStratificationVariables>
+	</SubStratificationVariables>
+	<HelperVariables>
+	</HelperVariables>
+	<CustomFractions>
+	</CustomFractions>
+	<Strata>
+		<Stratum>
+			<Fraction>0</Fraction>
+			<RangeGroupRefs>
+				<RangeGroupRef Code="SBI1" /><RangeGroupRef Code="GK4" />
+			</RangeGroupRefs>
+		</Stratum>
+		<Stratum>
+			<Fraction>1</Fraction>
+			<RangeGroupRefs>
+				<RangeGroupRef Code="SBI1" /><RangeGroupRef Code="GK5" />
+			</RangeGroupRefs>
+		</Stratum>
+		<Stratum>
+			<Fraction>1</Fraction>
+			<RangeGroupRefs>
+				<RangeGroupRef Code="SBI1" /><RangeGroupRef Code="GK6" />
+			</RangeGroupRefs>
+		</Stratum>
+		<Stratum>
+			<Fraction>1</Fraction>
+			<RangeGroupRefs>
+				<RangeGroupRef Code="SBI1" /><RangeGroupRef Code="GK7" />
+			</RangeGroupRefs>
+		</Stratum>
+		<Stratum>
+			<Fraction>1</Fraction>
+			<RangeGroupRefs>
+				<RangeGroupRef Code="SBI1" /><RangeGroupRef Code="GK8" />
+			</RangeGroupRefs>
+		</Stratum>
+		<Stratum>
+			<Fraction>1</Fraction>
+			<RangeGroupRefs>
+				<RangeGroupRef Code="SBI1" /><RangeGroupRef Code="GK9" />
+			</RangeGroupRefs>
+		</Stratum>
+		<Stratum>
+			<Fraction>0</Fraction>
+			<RangeGroupRefs>
+				<RangeGroupRef Code="SBI2" /><RangeGroupRef Code="GK4" />
+			</RangeGroupRefs>
+		</Stratum>
+		<Stratum>
+			<Fraction>1</Fraction>
+			<RangeGroupRefs>
+				<RangeGroupRef Code="SBI2" /><RangeGroupRef Code="GK5" />
+			</RangeGroupRefs>
+		</Stratum>
+		<Stratum>
+			<Fraction>1</Fraction>
+			<RangeGroupRefs>
+				<RangeGroupRef Code="SBI2" /><RangeGroupRef Code="GK6" />
+			</RangeGroupRefs>
+		</Stratum>
+		<Stratum>
+			<Fraction>1</Fraction>
+			<RangeGroupRefs>
+				<RangeGroupRef Code="SBI2" /><RangeGroupRef Code="GK7" />
+			</RangeGroupRefs>
+		</Stratum>
+		<Stratum>
+			<Fraction>1</Fraction>
+			<RangeGroupRefs>
+				<RangeGroupRef Code="SBI2" /><RangeGroupRef Code="GK8" />
+			</RangeGroupRefs>
+		</Stratum>
+		<Stratum>
+			<Fraction>1</Fraction>
+			<RangeGroupRefs>
+				<RangeGroupRef Code="SBI2" /><RangeGroupRef Code="GK9" />
+			</RangeGroupRefs>
+		</Stratum>
+		<Stratum>
+			<Fraction>1</Fraction>
+			<RangeGroupRefs>
+				<RangeGroupRef Code="SBI3" /><RangeGroupRef Code="GK4" />
+			</RangeGroupRefs>
+		</Stratum>
+		<Stratum>
+			<Fraction>1</Fraction>
+			<RangeGroupRefs>
+				<RangeGroupRef Code="SBI3" /><RangeGroupRef Code="GK5" />
+			</RangeGroupRefs>
+		</Stratum>
+		<Stratum>
+			<Fraction>1</Fraction>
+			<RangeGroupRefs>
+				<RangeGroupRef Code="SBI3" /><RangeGroupRef Code="GK6" />
+			</RangeGroupRefs>
+		</Stratum>
+		<Stratum>
+			<Fraction>1</Fraction>
+			<RangeGroupRefs>
+				<RangeGroupRef Code="SBI3" /><RangeGroupRef Code="GK7" />
+			</RangeGroupRefs>
+		</Stratum>
+		<Stratum>
+			<Fraction>1</Fraction>
+			<RangeGroupRefs>
+				<RangeGroupRef Code="SBI3" /><RangeGroupRef Code="GK8" />
+			</RangeGroupRefs>
+		</Stratum>
+		<Stratum>
+			<Fraction>1</Fraction>
+			<RangeGroupRefs>
+				<RangeGroupRef Code="SBI3" /><RangeGroupRef Code="GK9" />
+			</RangeGroupRefs>
+		</Stratum>
+		<Stratum>
+			<Fraction>0</Fraction>
+			<RangeGroupRefs>
+				<RangeGroupRef Code="SBI4" /><RangeGroupRef Code="GK4" />
+			</RangeGroupRefs>
+		</Stratum>
+		<Stratum>
+			<Fraction>1</Fraction>
+			<RangeGroupRefs>
+				<RangeGroupRef Code="SBI4" /><RangeGroupRef Code="GK5" />
+			</RangeGroupRefs>
+		</Stratum>
+		<Stratum>
+			<Fraction>1</Fraction>
+			<RangeGroupRefs>
+				<RangeGroupRef Code="SBI4" /><RangeGroupRef Code="GK6" />
+			</RangeGroupRefs>
+		</Stratum>
+		<Stratum>
+			<Fraction>1</Fraction>
+			<RangeGroupRefs>
+				<RangeGroupRef Code="SBI4" /><RangeGroupRef Code="GK7" />
+			</RangeGroupRefs>
+		</Stratum>
+		<Stratum>
+			<Fraction>1</Fraction>
+			<RangeGroupRefs>
+				<RangeGroupRef Code="SBI4" /><RangeGroupRef Code="GK8" />
+			</RangeGroupRefs>
+		</Stratum>
+		<Stratum>
+			<Fraction>1</Fraction>
+			<RangeGroupRefs>
+				<RangeGroupRef Code="SBI4" /><RangeGroupRef Code="GK9" />
+			</RangeGroupRefs>
+		</Stratum>
+		<Stratum>
+			<Fraction>0</Fraction>
+			<RangeGroupRefs>
+				<RangeGroupRef Code="SBI5" /><RangeGroupRef Code="GK4" />
+			</RangeGroupRefs>
+		</Stratum>
+		<Stratum>
+			<Fraction>1</Fraction>
+			<RangeGroupRefs>
+				<RangeGroupRef Code="SBI5" /><RangeGroupRef Code="GK5" />
+			</RangeGroupRefs>
+		</Stratum>
+		<Stratum>
+			<Fraction>1</Fraction>
+			<RangeGroupRefs>
+				<RangeGroupRef Code="SBI5" /><RangeGroupRef Code="GK6" />
+			</RangeGroupRefs>
+		</Stratum>
+		<Stratum>
+			<Fraction>1</Fraction>
+			<RangeGroupRefs>
+				<RangeGroupRef Code="SBI5" /><RangeGroupRef Code="GK7" />
+			</RangeGroupRefs>
+		</Stratum>
+		<Stratum>
+			<Fraction>1</Fraction>
+			<RangeGroupRefs>
+				<RangeGroupRef Code="SBI5" /><RangeGroupRef Code="GK8" />
+			</RangeGroupRefs>
+		</Stratum>
+		<Stratum>
+			<Fraction>1</Fraction>
+			<RangeGroupRefs>
+				<RangeGroupRef Code="SBI5" /><RangeGroupRef Code="GK9" />
+			</RangeGroupRefs>
+		</Stratum>
+		<Stratum>
+			<Fraction>0</Fraction>
+			<RangeGroupRefs>
+				<RangeGroupRef Code="SBI6" /><RangeGroupRef Code="GK4" />
+			</RangeGroupRefs>
+		</Stratum>
+		<Stratum>
+			<Fraction>1</Fraction>
+			<RangeGroupRefs>
+				<RangeGroupRef Code="SBI6" /><RangeGroupRef Code="GK5" />
+			</RangeGroupRefs>
+		</Stratum>
+		<Stratum>
+			<Fraction>1</Fraction>
+			<RangeGroupRefs>
+				<RangeGroupRef Code="SBI6" /><RangeGroupRef Code="GK6" />
+			</RangeGroupRefs>
+		</Stratum>
+		<Stratum>
+			<Fraction>1</Fraction>
+			<RangeGroupRefs>
+				<RangeGroupRef Code="SBI6" /><RangeGroupRef Code="GK7" />
+			</RangeGroupRefs>
+		</Stratum>
+		<Stratum>
+			<Fraction>1</Fraction>
+			<RangeGroupRefs>
+				<RangeGroupRef Code="SBI6" /><RangeGroupRef Code="GK8" />
+			</RangeGroupRefs>
+		</Stratum>
+		<Stratum>
+			<Fraction>1</Fraction>
+			<RangeGroupRefs>
+				<RangeGroupRef Code="SBI6" /><RangeGroupRef Code="GK9" />
+			</RangeGroupRefs>
+		</Stratum>
+	</Strata>
+	<Output>
+		<EntirePopulation>true</EntirePopulation>
+		<ExtraColumns>
+			<Column Name="PRN" />
+			<Column Name="SBV" />
+			<Column Name="BaseStratum" />
+			<Column Name="Classification" />
+		</ExtraColumns>
+	</Output>			
+</n:Survey>

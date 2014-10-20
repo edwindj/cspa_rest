@@ -1,0 +1,19 @@
+{
+	"fields" : [
+		{
+			"name" : "BeIdentificatie",
+			"title" : "BeIdentificatie",
+			"type" : "integer"
+		},
+		{
+			"name" : "Sbi2008ActueelGecoordineerd",
+			"title" : "Sbi2008ActueelGecoordineerd",
+			"type" : "integer",
+		},
+		{
+			"name" : "GkSbsGecoordineerd",
+			"title" : "GkSbsGecoordineerd",
+			"type" : "integer"
+		}
+	]
+}

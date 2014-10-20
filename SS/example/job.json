@@ -1,0 +1,11 @@
+{
+	"name" :  "example",
+	"input":{
+		"populationdata"  :{
+					"data": "http://127.0.0.1:8080/SS/example/input/populationdatadata.csv",
+					"schema": "http://127.0.0.1:8080/SS/example/input/populationdatadata_schema.json"
+				 },
+		"surveygroup" : "http://127.0.0.1:8080/SS/example/input/GroupCSPA.xml",
+		"survey" : "http://127.0.0.1:8080/SS/example/input/CSPA.xml"
+	}
+}
