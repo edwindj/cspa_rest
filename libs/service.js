@@ -233,6 +233,27 @@ function Service(server, servicedir, vpath) {
     });
   }
 
+  service.get_tests = function(req, res, next) {
+    fs.readFile(service.servicedir + "/tests/index.html", function(err, data) {
+      res.header("Content-Type", "text/html");
+      res.status(200);
+      res.end(data);
+      return next();
+    });
+  };
+
+  service.get_test_data = function(req, res, next) {
+    var file = service.servicedir + "/tests/data/" + req.params.file;
+    // check if file exists
+    fs.readFile(file, function(err, data) {
+      if (err) return next(err);
+      res.status(200);
+      res.end(data);
+      return next();
+    });
+  }
+
+
   server.post("" + service.name, service.new_job);
   server.get("" + service.name + "/job", service.list_jobs);
   server.get("/" + service.name + "/job/:id", service.get_job);
@@ -240,6 +261,8 @@ function Service(server, servicedir, vpath) {
   // this next line catches the log statement
   server.get("/" + service.name + "/job/:id/log", service.get_log);
   server.get("/" + service.name + "/example/input/:file", service.get_example_data);
+  server.get("/" + service.name + "/tests", service.get_tests);
+  server.get("/" + service.name + "/tests/:file", service.get_test_data);
   
 
   console.log("Created service " + service.name + " on " + server.url + "/" + service.name + ".");

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Test Linear Rule Checking Service</title>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+  </head>
+  <body>
+    <script>
+      var job = {
+        "name" : "example",
+        "input":{
+          "data"  :{
+            "data": "http://127.0.0.1:8080/LRC/tests/data.csv",
+            "schema": "http://127.0.0.1:8080/LRC/tests/data_schema.json"
+          },
+          "rules" : "http://127.0.0.1:8080/LRC/tests/rules.txt"
+        }
+      };
+
+
+      function check_result(job) {
+        console.log(job);
+      }
+
+      function wait_till_job_finished(url, check) {
+        d3.json(url)
+          .header("Accept", "application/json")
+          .get(function(error, job) {
+          if (error) console.log(error);
+          var finished = !(job.status === "running" || job.status === "created");
+          if (finished) {
+            check(job);
+          } else {
+            setTimeout(function() { wait_till_job_finished(url, check);}, 1000);
+          }
+        });
+      }
+
+      d3.json("/LRC")
+        .header("Content-Type", "application/json")
+        .post(JSON.stringify(job), function(error, data) {
+          if (error) console.log(error);
+          wait_till_job_finished(data.url, check_result);
+        });
+      
+    </script>
+  </body>
+</html>
