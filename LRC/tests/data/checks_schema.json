@@ -1,0 +1,26 @@
+{
+    "fields": [
+        {
+            "name": "num1",
+            "title": "Rule num1",
+            "type": "integer",
+            "description": "0 < turnover",
+            "_row": "num1"
+        },
+        {
+            "name": "num2",
+            "title": "Rule num2",
+            "type": "integer",
+            "description": "0 <= cost",
+            "_row": "num2"
+        },
+        {
+            "name": "num3",
+            "title": "Rule num3",
+            "type": "integer",
+            "description": "cost + profit == turnover",
+            "_row": "num3"
+        }
+    ]
+}
+
