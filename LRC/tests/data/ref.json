@@ -1,0 +1,24 @@
+{
+  "id":"",
+  "name":"",
+  "created":"",
+  "status":"",
+  "url":"",
+  "input":{
+    "data":{
+      "data":"",
+      "schema":""
+    },
+    "rules":""
+  },
+  "result":{
+    "checks":{
+      "data":"/LRC/tests/checks.csv",
+      "schema":"/LRC/tests/checks_schema.json",
+      "type":""
+    }
+  },
+  "started":"",
+  "ended":"",
+  "log":""
+}
