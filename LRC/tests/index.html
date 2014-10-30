@@ -2,59 +2,45 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>Test Linear Rule Checking Service</title>
+
     <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script src="http://d3js.org/queue.v1.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap/3.3.0/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="tests/check.js"></script>
+    <script src="tests/cspa.js"></script>
+    <script src="tests/expect.js"></script>
 
   </head>
   <body>
+
+    <div class="container">
+      <h1>Test results</h1>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">Panel heading</div>
+          <div class="panel-body" id="messages">
+        </div>
+      </div>
+
+    </div>
+
     <script>
-      var job = {
-        "name" : "example",
-        "input":{
-          "data"  :{
-            "data": "http://127.0.0.1:8080/LRC/tests/data.csv",
-            "schema": "http://127.0.0.1:8080/LRC/tests/data_schema.json"
-          },
-          "rules" : "http://127.0.0.1:8080/LRC/tests/rules.txt"
-        }
-      };
+      var job = Job("test1", "/LRC")
+        .input("data", "http://127.0.0.1:8080/LRC/tests/data.csv", 
+          "http://127.0.0.1:8080/LRC/tests/data_schema.json")
+        .input("rules", "http://127.0.0.1:8080/LRC/tests/rules.txt");
 
-      function check_result(job) {
-        console.log(job);
-        queue()
-          .defer(d3.csv, job.result.checks.data)
-          .defer(d3.csv, "tests/checks.csv")
-          .await(function(error, data1, data2) {
-            var res = equal(data1, data2);
-            if (!res) alert("Text failed");
-            else alert("Yeeh!");
-          });
-      }
-
-      function wait_till_job_finished(url, check) {
-        d3.json(url)
-          .header("Accept", "application/json")
-          .get(function(error, job) {
-          if (error) console.log(error);
-          var finished = !(job.status === "running" || job.status === "created");
-          if (finished) {
-            check(job);
-          } else {
-            setTimeout(function() { wait_till_job_finished(url, check);}, 1000);
-          }
-        });
-      }
-
-      d3.json("/LRC")
-        .header("Content-Type", "application/json")
-        .post(JSON.stringify(job), function(error, data) {
-          if (error) console.log(error);
-          wait_till_job_finished(data.url, check_result);
-        });
-      
+      expect_equal().on_error(function(error, message) {
+        var div = $("#messages");
+        if (error) div.parent().addClass("panel-danger").removeClass("panel-default");
+        $("<p>").html(message).addClass(error ? "alert alert-danger" : "alert alert-success").appendTo(div);
+      })(job, "/LRC/tests/ref.json");
     </script>
   </body>
 </html>
