@@ -28,6 +28,12 @@
         </div>
       </div>
 
+      <div class="panel panel-default">
+        <div class="panel-heading">Panel heading</div>
+          <div class="panel-body" id="messages2">
+        </div>
+      </div>
+
     </div>
 
     <script>
@@ -41,6 +47,21 @@
         if (error) div.parent().addClass("panel-danger").removeClass("panel-default");
         $("<p>").html(message).addClass(error ? "alert alert-danger" : "alert alert-success").appendTo(div);
       })(job, "/LRC/tests/ref.json");
+
+
+      // incorrect schema for input
+      var job2 = Job("test2", "/LRC")
+        .input("data", "http://127.0.0.1:8080/LRC/tests/test2_data.csv", 
+          "http://127.0.0.1:8080/LRC/tests/test2_data_schema.json")
+        .input("rules", "http://127.0.0.1:8080/LRC/tests/test2_rules.txt");
+
+      expect_error().on_error(function(error, message) {
+        var div = $("#messages2");
+        if (error) div.parent().addClass("panel-danger").removeClass("panel-default");
+        $("<p>").html(message).addClass(error ? "alert alert-danger" : "alert alert-success").appendTo(div);
+      })(job2);
+
+
     </script>
   </body>
 </html>
