@@ -4,22 +4,19 @@
             "name": "num1",
             "title": "Rule num1",
             "type": "integer",
-            "description": "0 < turnover",
-            "_row": "num1"
+            "description": "0 < turnover"
         },
         {
             "name": "num2",
             "title": "Rule num2",
             "type": "integer",
-            "description": "0 <= cost",
-            "_row": "num2"
+            "description": "0 <= cost"
         },
         {
             "name": "num3",
             "title": "Rule num3",
             "type": "integer",
-            "description": "cost + profit == turnover",
-            "_row": "num3"
+            "description": "cost + profit == turnover"
         }
     ]
 }
