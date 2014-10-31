@@ -48,7 +48,6 @@
         $("<p>").html(message).addClass(error ? "alert alert-danger" : "alert alert-success").appendTo(div);
       })(job, "/LRC/tests/ref.json");
 
-
       // incorrect schema for input
       var job2 = Job("test2", "/LRC")
         .input("data", "http://127.0.0.1:8080/LRC/tests/test2_data.csv", 
@@ -60,7 +59,6 @@
         if (error) div.parent().addClass("panel-danger").removeClass("panel-default");
         $("<p>").html(message).addClass(error ? "alert alert-danger" : "alert alert-success").appendTo(div);
       })(job2);
-
 
     </script>
   </body>
