@@ -11,7 +11,8 @@ save_data_plus_schema <- function(x, path, improve_schema=function(s) s){
   
   path_schema <- sub("(\\.csv)$", "_schema.json", path)
   x_schema <- improve_schema(derive_schema(x))
-  
+  rownames(x_schema$fields) <- NULL
+  #print(x_schema)
   cat("* Writing schema '", path_schema, "'\n", sep="")
   writeLines(toJSON(x_schema, pretty = TRUE, auto_unbox = TRUE, force=TRUE), con=path_schema)
 }
