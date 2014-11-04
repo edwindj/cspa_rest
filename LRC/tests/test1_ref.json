@@ -13,8 +13,8 @@
   },
   "result":{
     "checks":{
-      "data":"/LRC/tests/checks.csv",
-      "schema":"/LRC/tests/checks_schema.json",
+      "data":"/LRC/tests/test1_checks.csv",
+      "schema":"/LRC/tests/test1_checks_schema.json",
       "type":""
     }
   },

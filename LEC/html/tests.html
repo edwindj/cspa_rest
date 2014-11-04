@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Test Linear Rule Checking Service</title>
+    <title>Test Service {service.title}</title>
 
     <script src="/external/jquery/jquery-1.11.0.min.js"></script>
     <link rel="stylesheet" href="/external/bootstrap/3.1.1/css/bootstrap.min.css">
@@ -20,12 +20,16 @@
   <body>
 
     <div class="container">
-      <h1>Test results</h1>
+      <h1>Test results {service.title}</h1>
       <div id="test-results"></div>
     </div>
 
     <script>
-      tests($("#test-results"));
+      if (window['tests'] != undefined) {
+        tests("{serviceurl}", $("#test-results"));
+      } else {
+        $("<p>").text("No tests have been defined for this service.").appendTo($("#test-results"));
+      }
     </script>
   </body>
 </html>

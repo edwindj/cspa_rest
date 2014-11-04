@@ -234,16 +234,19 @@ function Service(server, servicedir, vpath) {
   }
 
   service.get_tests = function(req, res, next) {
-    fs.readFile(service.servicedir + "/tests/index.html", function(err, data) {
+    fs.readFile(service.servicedir + "/html/tests.html", function(err, template) {
+      if (err) return next(err);
       res.header("Content-Type", "text/html");
       res.status(200);
-      res.end(data);
+      var html = whiskers.render(template, {"service": service.definition,
+        "serviceurl": server.url + "/" + service.name});
+      res.end(html);
       return next();
     });
   };
 
   service.get_test_data = function(req, res, next) {
-    var file = service.servicedir + "/tests/data/" + req.params.file;
+    var file = service.servicedir + "/tests/" + req.params.file;
     // check if file exists
     fs.readFile(file, function(err, data) {
       if (err) return next(err);
