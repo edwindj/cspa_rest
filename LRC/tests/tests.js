@@ -17,5 +17,13 @@ function tests(serviceurl, div) {
     expect_error().on_error(handler)(job);
   });
 
+  test(div, "Empty rule set", function(handler) {
+    var job = Job("test3", "/LRC")
+      .input("data", serviceurl + "/tests/test3_data.csv", 
+        serviceurl + "/tests/test3_data_schema.json")
+      .input("rules", serviceurl + "/tests/test3_rules.txt");
+    expect_equal().on_error(handler)(job, "/LRC/tests/test3_ref.json");
+  });
+
 }
 
