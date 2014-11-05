@@ -28,7 +28,10 @@
       if (window['tests'] != undefined) {
         tests("{serviceurl}", $("#test-results"));
       } else {
-        $("<p>").text("No tests have been defined for this service.").appendTo($("#test-results"));
+        $("<p>").html("You are in bad luck, no tests have been defined for this " + 
+          "service. Well, at least you know you can reach the service. Tests " +
+          "can be added by creating a <code>tests.js</code> file in the " + 
+          " <code>tests</code> directory of the service.").appendTo($("#test-results"));
       }
     </script>
   </body>
