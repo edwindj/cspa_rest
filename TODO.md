@@ -1,10 +1,13 @@
 # Ideas for version 2.0
 
+## Temporary storage
+Extend the frame work, so the service can specify where job info, input, and output should be stored. Currently this is in a subdirectory of the service.
+
 ## Swagger definition
 
 Integrate/combine `service.yaml` with `swagger.json`, so the service needs to specified once.  Swagger definition should be serviced by the CSPA service
 
-## Add an easier asyn REST interface
+## Add an easier async REST interface
 
 Add a wrapper around the job resource, so the call looks like a synchronous call, but is handled asynchronously. This is merely synthetic sugar to ease
 the use of the service.
@@ -37,5 +40,28 @@ It also makes it easier to implement a new service, since they need not know how
 
 ## Authentication
 Integrate authentication (OAuth) into the framework.
+
+## Split project in logical parts
+Split the project in a:
+
+- cspa REST frame work 
+- each cspa service in a separate project (using the framework)
+
+## Port mappings / Redirect server
+
+CSPA rest services run in one or more webservers with different ips and ports. For easy deployment and robust software it is
+wise to manage urls to ip:port centrally. Maybe implement a simple redirect service?
+
+e.g. 
+`http://cspa.<name of nsi>.<country>/LRC` redirects to `http://xxx.xxx.xxx/LRC:8080` and `http://cspa.<name of nsi>.<country>/LEL` to `http://xxx.xxx.yyyy/LRC:8081`
+
+## Deployment archictecture
+
+Multiple options:
+
+1. 1 (docker) image (server), 1 web server with multiple services. Advantage: simple, no port mappings and redirection necessary. Disadvantage: not scalable. 
+2. 1 (docker) image (server), each service it's own web server. Advantage: isolated services, disadvantage: port mappings needed (webservers can not run on same port), not scalable
+3. multiple (docker) images, each services it's own web server. Advantage: scalable, isolated, disadvantage: more complex management.
+
 
 
