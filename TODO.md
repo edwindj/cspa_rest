@@ -45,7 +45,7 @@ Integrate authentication (OAuth) into the framework.
 Split the project in a:
 
 - cspa REST frame work 
-- each cspa service in a separate project (using the framework)
+- each cspa service in a separate project (using the framework) including Dockerfile
 
 ## Port mappings / Redirect server
 
@@ -59,9 +59,15 @@ e.g.
 
 Multiple options:
 
-1. 1 (docker) image (server), 1 web server with multiple services. Advantage: simple, no port mappings and redirection necessary. Disadvantage: not scalable. 
-2. 1 (docker) image (server), each service it's own web server. Advantage: isolated services, disadvantage: port mappings needed (webservers can not run on same port), not scalable
-3. multiple (docker) images, each services it's own web server. Advantage: scalable, isolated, disadvantage: more complex management.
+1. 1 (docker) image (server), 1 web server with multiple services. 
+   
+   - Advantage: simple, no port mappings and redirection necessary. 
+   - Disadvantage: not scalable. 
+2. 1 (docker) image (server), each service it's own web server. 
 
+   - Advantage: isolated services, low resources
+   - disadvantage: port mappings needed (webservers can not run on same port), not scalable
+3. multiple (docker) images, each services it's own web server. 
 
-
+   - Advantage: scalable, isolated, D
+   - Disadvantage: more complex management, resource hungry, each image has complete installation (may be shared).
