@@ -1,0 +1,24 @@
+{
+	"fields" : [
+		{
+			"name" : "x",
+			"title" : "x",
+			"type" : "integer"
+		},
+		{
+			"name" : "y",
+			"title" : "y",
+			"type" : "integer"
+		},
+		{
+			"name" : "a",
+			"title" : "a",
+			"type" : "integer"
+		},
+		{
+			"name" : "z",
+			"title" : "z",
+			"type" : "integer"
+		}
+	]
+}

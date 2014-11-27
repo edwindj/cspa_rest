@@ -1,0 +1,20 @@
+{
+	"fields" : [
+		{
+			"name" : "turnover_error",
+			"title" : "turnover",
+			"type" : "integer"
+		},
+		{
+			"name" : "cost",
+			"title" : "cost",
+			"type" : "integer",
+			"description" : "cost of manufacturing"
+		},
+		{
+			"name" : "profit",
+			"title" : "profit",
+			"type" : "integer"
+		}
+	]
+}

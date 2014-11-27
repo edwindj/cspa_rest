@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Test Service {service.title}</title>
+
+    <script src="/external/jquery/jquery-1.11.0.min.js"></script>
+    <link rel="stylesheet" href="/external/bootstrap/3.1.1/css/bootstrap.min.css">
+    <script src="/external/d3/d3.v3.min.js" charset="utf-8"></script>
+
+    <script src="/external/cspa.js"></script>
+    <script src="/external/cspa_test.js"></script>
+
+    <script src="tests/tests.js"></script>
+
+  </head>
+  <body>
+
+    <div class="container">
+      <h1>Test results {service.title}</h1>
+      <div id="test-results"></div>
+    </div>
+
+    <script>
+      if (window['tests'] != undefined) {
+        tests("{serviceurl}", $("#test-results"));
+      } else {
+        $("<p>").html("You are in bad luck, no tests have been defined for this " + 
+          "service. Well, at least you know you can reach the service. Tests " +
+          "can be added by creating a <code>tests.js</code> file in the " + 
+          " <code>tests</code> directory of the service.").appendTo($("#test-results"));
+      }
+    </script>
+  </body>
+</html>
