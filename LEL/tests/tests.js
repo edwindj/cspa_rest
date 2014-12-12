@@ -7,6 +7,9 @@ function tests(serviceurl, div) {
       	    , serviceurl + "/tests/test1_data.csv"
       	    , serviceurl + "/tests/test1_data_schema.json"
       	    )
+      .input( "weight"
+            , serviceurl + "/tests/test1_weight.csv"
+            )
       .input( "rules"
       	    , serviceurl + "/tests/test1_rules.txt"
       	    );

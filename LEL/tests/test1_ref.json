@@ -18,9 +18,9 @@
       "type":""
     },
     "status":{
-      "data":"/LEL/tests/test1_status.csv",
-      "schema":"/LEL/tests/test1_status_schema.json",
-      "type":""
+      "data": "",
+      "schema": "",
+      "type": ""
     }
   },
   "started":"",

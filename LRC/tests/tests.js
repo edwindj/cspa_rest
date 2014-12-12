@@ -22,7 +22,7 @@ function tests(serviceurl, div) {
       .input("data", serviceurl + "/tests/test3_data.csv", 
         serviceurl + "/tests/test3_data_schema.json")
       .input("rules", serviceurl + "/tests/test3_rules.txt");
-    expect_equal().on_error(handler)(job, "/LRC/tests/test3_ref.json");
+    expect_error().on_error(handler)(job);
   });
 
 }

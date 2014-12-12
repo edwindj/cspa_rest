@@ -93,7 +93,8 @@ function compare_files(url1, url2, callback, getcall) {
       }
       var res = equal(data1, data2);
       if (!res) {
-        callback(true, "Files are not equal: '" + url1 + "' vs '" + url2 + "'.");
+        callback(true, "Files are not equal: <a href='"+url1+"'>" + url1 + "</a>"+
+          "' vs <a href='"+url2+"'>'" + url2 + "'</a>.");
       } else {
         callback(false, "Files are equal: '" + url1 + "' vs '" + url2 + "'.");
       }

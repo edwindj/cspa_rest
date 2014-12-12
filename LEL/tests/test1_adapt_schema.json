@@ -3,20 +3,17 @@
         {
             "name": "turnover",
             "title": "turnover",
-            "type": "integer",
-            "_row": "turnover"
+            "type": "integer"
         },
         {
             "name": "cost",
             "title": "cost",
-            "type": "integer",
-            "_row": "cost"
+            "type": "integer"
         },
         {
             "name": "profit",
             "title": "profit",
-            "type": "integer",
-            "_row": "profit"
+            "type": "integer"
         }
     ]
 }
