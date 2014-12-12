@@ -6,6 +6,8 @@ var VPATH = process.env.VPATH || "";
 var restify = require('restify');
 var server = restify.createServer();
 server.pre(restify.pre.userAgentConnection());
+
+// make cross site requests possible
 server.use(restify.CORS());
 server.use(restify.bodyParser());
 

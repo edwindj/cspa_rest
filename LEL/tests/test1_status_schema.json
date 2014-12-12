@@ -1,0 +1,19 @@
+{
+    "fields": [
+        {
+            "name": "weight",
+            "title": "weight",
+            "type": "number",
+            "description": "Weight of the solution found: sum of the weights of the fields that are considered erroneous",
+            "_row": "weight"
+        },
+        {
+            "name": "elapsed",
+            "title": "elapsed",
+            "type": "number",
+            "description": "Time in seconds for finding solution",
+            "_row": "elapsed"
+        }
+    ]
+}
+
