@@ -1,0 +1,22 @@
+{
+	"fields" : [
+		{
+			"name" : "num1",
+			"title" : "Rule num1",
+			"type" : "integer",
+			"description" : "x + 3*y == 2*z"
+		},
+		{
+			"name" : "num2",
+			"title" : "Rule num2",
+			"type" : "integer",
+			"description" : "x == z"
+		},
+		{
+			"name" : "num3",
+			"title" : "Rule num3",
+			"type" : "integer",
+			"description" : "a < 0"
+		}
+	]
+}

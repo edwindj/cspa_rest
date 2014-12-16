@@ -18,5 +18,27 @@ function tests(serviceurl, div) {
     .on_error(handler)(job, "/LEL/tests/test1_ref.json");
   });
 
+  test(div, "Incorrect column name in data schema", function(handler) {
+    var job = Job("test2", "/LEL")
+      .input( "data"
+            , serviceurl + "/tests/test2_data.csv"
+            , serviceurl + "/tests/test2_data_schema.json"
+            )
+      .input( "rules"
+            , serviceurl + "/tests/test2_rules.txt"
+            );
+    expect_error()
+    .on_error(handler)(job);
+  });
+
+  test(div, "Empty rule set", function(handler) {
+    var job = Job("test3", "/LEL")
+      .input("data", serviceurl + "/tests/test3_data.csv", 
+        serviceurl + "/tests/test3_data_schema.json")
+      .input("rules", serviceurl + "/tests/test3_rules.txt");
+    expect_error().on_error(handler)(job);
+  });
+
+
 }
 

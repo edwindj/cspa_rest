@@ -1,0 +1,3 @@
+turnover > 0
+cost >= 0
+profit == turnover - cost
