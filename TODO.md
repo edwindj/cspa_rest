@@ -7,6 +7,10 @@ Extend the frame work, so the service can specify where job info, input, and out
 
 Integrate/combine `service.yaml` with `swagger.json`, so the service needs to specified once.  Swagger definition should be serviced by the CSPA service
 
+## RAML
+
+Find out if [raml](http://raml.org) if better than swagger.
+
 ## Add an easier async REST interface
 
 Add a wrapper around the job resource, so the call looks like a synchronous call, but is handled asynchronously. This is merely synthetic sugar to ease
