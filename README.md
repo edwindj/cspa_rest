@@ -25,6 +25,7 @@ This will start a docker container with both services running that exposes port 
 The docker image is automatically build from the `vagrant/Dockerfile`.
 
 ### Complete install
+(for ubuntu 14.04 you can also use [vagrant/bootstrap.sh](vagrant/bootstrap.sh) to do the install)
 
 - Install **R** and run
 ```S
