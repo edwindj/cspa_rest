@@ -246,7 +246,11 @@ function Service(server, servicedir, vpath) {
   };
 
   service.get_test_data = function(req, res, next) {
-    var file = service.servicedir + "/tests/" + req.params.file;
+    var file = service.servicedir + "/tests/";
+    if (req.params.test){
+      file += req.params.test + "/";
+    }
+    file += req.params.file;
     // check if file exists
     fs.readFile(file, function(err, data) {
       if (err) return next(err);
@@ -265,6 +269,7 @@ function Service(server, servicedir, vpath) {
   server.get("/" + service.name + "/job/:id/log", service.get_log);
   server.get("/" + service.name + "/example/input/:file", service.get_example_data);
   server.get("/" + service.name + "/tests", service.get_tests);
+  server.get("/" + service.name + "/tests/:test/:file", service.get_test_data);
   server.get("/" + service.name + "/tests/:file", service.get_test_data);
   
 

@@ -14,13 +14,11 @@
   "result":{
     "adapt":{
       "data":"/LEL/tests/test1_adapt.csv",
-      "schema":"/LEL/tests/test1_adapt_schema.json",
-      "type":""
+      "schema":"/LEL/tests/test1_adapt_schema.json"
     },
     "status":{
       "data": "",
-      "schema": "",
-      "type": ""
+      "schema": ""
     }
   },
   "started":"",

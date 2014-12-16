@@ -20,7 +20,6 @@ Arguments:
 " -> doc
 library(docopt, quietly=T)
 opt <- docopt(doc)
-#print(opt)
 
 library(editrules)
 
@@ -61,7 +60,7 @@ main <- function(data_url, data_schema_url, rules_url, weights_url, adapt_file, 
   } else {
     weight <- read.csv(weights_url)
     weight <- check_schema(weight, schema)
-    if (nrow(weights) != 1 && nrow(weights) != nrow(dat)){
+    if (nrow(weight) > 1L && nrow(weight) != nrow(dat)){
       stop("Number of rows of weight is not equal to 1 or ", nrow(dat))
     }
   }
@@ -86,8 +85,9 @@ main <- function(data_url, data_schema_url, rules_url, weights_url, adapt_file, 
 
 main(opt$data, opt$data_schema, opt$rules, opt$weights, opt$adapt, opt$status)
 
-# data_url <- "file://example/input/data.csv"
-# rules_url <- "file://example/input/rules.txt"
-# adapt_file <-"example/result/adapt.csv"
-# status_file <-"example/result/status.csv"
-# main(data_url, NULL ,rules_url, NULL, adapt_file, status_file)
+# data_url <- "file://tests/test1_data.csv"
+# rules_url <- "file://tests/test1_rules.txt"
+# weights <- "file://tests/test1_weights.csv"
+# adapt_file <-"tests/adapt.csv"
+# status_file <-"tests/status.csv"
+# main(data_url, NULL ,rules_url, weights, adapt_file, status_file)

@@ -144,10 +144,10 @@ function expect_equal() {
   function test(job, ref) {
     job.post(function(error, result_job) {
       if (error || job.status === "error") {
-        on_error(true, "Job failed.");
+        on_error(true, "<a href='"+result_job.url+"'>Job</a> failed.");
         return;
       }
-      on_error(false, "Job finished successfully.");
+      on_error(false, "<a href='"+result_job.url+"'>Job</a> finished successfully.");
       d3.json(ref, function(error, reference_job) {
         if (error) {
           on_error(true, "Failed to load reference job: '" + ref + "'.");
