@@ -18,7 +18,7 @@ server.get(/^\/external.*/, restify.serveStatic({
     directory: __dirname
 }));	
 
-server.listen(PORT, "127.0.0.1", function() {
+server.listen(PORT, null, function() {
   console.log("Service started.");
   // create service
   var lrc  = cspa(server, __dirname + "/LRC", VPATH);
