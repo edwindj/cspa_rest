@@ -38,7 +38,7 @@ function Service(server, servicedir, vpath) {
     if (!req.is("application/json")) 
       return next(new Error("Service expect JSON as input."));
     var id = service.jobs.length;
-    var url = service.server.url + "/" + service.name + "/job/" + id;
+    var url = "/" + service.name + "/job/" + id;
     var job = service.jobs[id] = Job(id, req.body.name, url, service.jobdir + "/" + id);
     // TODO check if input is complete and correct
     job.input = req.body.input;
@@ -239,7 +239,7 @@ function Service(server, servicedir, vpath) {
       res.header("Content-Type", "text/html");
       res.status(200);
       var html = whiskers.render(template, {"service": service.definition,
-        "serviceurl": server.url + "/" + service.name});
+        "serviceurl": "/" + service.name});
       res.end(html);
       return next();
     });

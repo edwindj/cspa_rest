@@ -16,14 +16,14 @@ var cspa = require("./libs/service.js");
 // serve bootstrap and jQuery
 server.get(/^\/external.*/, restify.serveStatic({
     directory: __dirname
-}));	
+}));
 
-server.listen(PORT, null, function() {
-  console.log("Service started.");
-  // create service
-  var lrc  = cspa(server, __dirname + "/LRC", VPATH);
-  var lel  = cspa(server, __dirname + "/LEL", VPATH);
-  var lec  = cspa(server, __dirname + "/LEC", VPATH);
-});
+server.listen(8080, function(){
+	var lrc  = cspa(server, __dirname + "/LRC", VPATH);
+	var lel  = cspa(server, __dirname + "/LEL", VPATH);
+	var lec  = cspa(server, __dirname + "/LEC", VPATH);	
+})
+
+
 
 

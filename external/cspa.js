@@ -23,14 +23,21 @@ function Job(name, url) {
     }
   };
 
+  function correct_local_href(href){
+    if (href[0] == '/'){
+       href = "http://localhost:8080" + href
+    }
+    return href
+  }
+
   job.input = function(name, input, schema) {
     if (arguments.length === 1) {
       return input_[name];
     } else if (arguments.length === 2) {
-      input_[name] = input;
+      input_[name] = correct_local_href(input);
       return this;
     } else if (arguments.length === 3) {
-      input_[name] = {"data" : input, "schema" : schema};
+      input_[name] = {"data" : correct_local_href(input), "schema" : correct_local_href(schema)};
       return this;
     } else {
       return input_;

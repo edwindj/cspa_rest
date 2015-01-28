@@ -1,7 +1,13 @@
 
 function test(div, context, test) {
-  var panel = $("<div>").addClass("panel panel-default").appendTo(div);
-  $("<div>").addClass("panel-heading").text(context).appendTo(panel);
+  var panel = $("<div>")
+  .addClass("panel panel-default")
+  .appendTo(div)
+  ;
+  $("<div>")
+  .addClass("panel-heading")
+  .text(context)
+  .appendTo(panel);
   var messages = $("<div>").addClass("panel-body").appendTo(panel);
 
   function message_handler(error, message) {
