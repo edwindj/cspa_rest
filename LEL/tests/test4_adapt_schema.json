@@ -1,0 +1,24 @@
+{
+    "fields": [
+        {
+            "name": "id",
+            "title": "id",
+            "type": "string"
+        },
+        {
+            "name": "turnover",
+            "title": "turnover",
+            "type": "integer"
+        },
+        {
+            "name": "cost",
+            "title": "cost",
+            "type": "integer"
+        },
+        {
+            "name": "profit",
+            "title": "profit",
+            "type": "integer"
+        }
+    ]
+}

@@ -39,6 +39,22 @@ function tests(serviceurl, div) {
     expect_error().on_error(handler)(job);
   });
 
+  test(div, "Check primary key job", function(handler) {
+    var job = Job("test4", "/LEL")
+      .input( "data"
+            , serviceurl + "/tests/test4_data.csv"
+            , serviceurl + "/tests/test4_data_schema.json"
+            )
+      .input( "weights"
+            , serviceurl + "/tests/test4_weights.csv"
+            )
+      .input( "rules"
+            , serviceurl + "/tests/test4_rules.txt"
+            );
+
+    expect_equal()
+    .on_error(handler)(job, "/LEL/tests/test4_ref.json");
+  });
 
 }
 

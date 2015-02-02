@@ -1,0 +1,27 @@
+{
+  "id":"",
+  "name":"",
+  "created":"",
+  "status":"",
+  "url":"",
+  "input":{
+    "data":{
+      "data":"",
+      "schema":""
+    },
+    "rules":""
+  },
+  "result":{
+    "adapt":{
+      "data":"/LEL/tests/test4_adapt.csv",
+      "schema":"/LEL/tests/test4_adapt_schema.json"
+    },
+    "status":{
+      "data": "/LEL/tests/test4_status.csv",
+      "schema": "/LEL/tests/test4_status_schema.json"
+    }
+  },
+  "started":"",
+  "ended":"",
+  "log":""
+}

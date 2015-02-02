@@ -64,6 +64,13 @@ main <- function(data_url, data_schema_url, rules_url, weights_url, adapt_file, 
       stop("Number of rows of weight is not equal to 1 or ", nrow(dat))
     }
   }
+  key <- schema$primaryKey
+  id <- NULL
+  if (is.character(key)){
+    id <- dat[key]
+    dat <- dat[-match(key, names(dat))]
+    weight <- weight[-match(key, names(weight))]
+  }
   
   # create an linear rule checking matrix
   E <- editmatrix(readLines(rules_url))
@@ -73,12 +80,24 @@ main <- function(data_url, data_schema_url, rules_url, weights_url, adapt_file, 
   
   #TODO changed adapt to 0 and 1? Or "true", "false"
   adapt <- data.frame(ifelse(le$adapt, 1L, 0L))
+  if (!is.null(id)){
+    adapt <- cbind(id, adapt)
+    rownames(adapt) <- NULL
+  }
   save_data_plus_schema(adapt, adapt_file)
   
   status <- le$status[c("weight", "elapsed")]
+  if (!is.null(id)){
+    status <- cbind(id, status)
+    rownames(status) <- NULL
+  }
   save_data_plus_schema(status, status_file, function(schema){
-    schema$fields$description <- c( "Weight of the solution found: sum of the weights of the fields that are considered erroneous",
-                                    "Time in seconds for finding solution")
+    desc <- c( "Weight of the solution found: sum of the weights of the fields that are considered erroneous",
+               "Time in seconds for finding solution")
+    if (!is.null(id)){
+      desc <- c(names(id), desc)
+    }
+    schema$fields$description <- desc
     schema
   })
 }
