@@ -4,7 +4,9 @@ This repo contains two services for the common statistical processing architectu
 - Linear Rule Checking (LRC), for checking records for validity
 - Linear Error Localization (LEL), for finding erronuous values in records, given a set of restrictions.
 
-Both services can be run as command-line tools (CLI) or via a Web API- REST interface.
+Both services can be run as command-line tools (CLI) or via a Web API- REST interface. 
+
+A generic REST interface for CSPA services is described in [proposal_rest_interface.pdf](./doc/proposal_rest_interface.pdf). Both services implement the proposed interface.
 
 ## To install
 
